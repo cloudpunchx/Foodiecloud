@@ -1,6 +1,7 @@
 <template>
     <div>
-        <img src="../assets/foodiecloud1.png" alt="Foodiecloud Logo">
+        <img class="logo" src="../assets/foodiecloud1.png" alt="Foodiecloud Logo">
+        <img class="phrase" src="../assets/foodiecloud2.png" alt="Foodiecloud phrase">
     </div>
 </template>
 
@@ -12,12 +13,20 @@
 
 <style scoped>
 div{
-    background-color: rgba(117, 116, 115, 0.308);
+    /* background-image: linear-gradient(to bottom, rgba(135, 135, 135, 0.238), rgba(135, 135, 135, 0.158)),
+                        url(../assets/giorgio-trovato-H8X-2bchJI8-unsplash.jpg);
+    background-size: cover; */
+    background-image: linear-gradient(#F3E8EE, #F3E8EE, white);
+    display: grid;
+    justify-items: center;
 }
-img, p{
-    width: 30vw;
+.logo{
+    height: 30vh;
+}
+.phrase{
+    width: 15vw;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    top: -50%;
+    left: 2%;
 }
 </style>
