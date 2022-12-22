@@ -7,12 +7,14 @@
 </template>
 
 <script>
+// import ClientLogInSignUp from '@/views/ClientLogInSignUp.vue';
+// import DiscoverPage from '@/views/DiscoverPage.vue';
 
 export default {
   name: 'App',
-
-  data: () => ({
-    //
-  }),
+  // components: {
+  //   DiscoverPage,
+  //   ClientLogInSignUp
+  // }
 };
 </script>

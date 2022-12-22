@@ -23,7 +23,7 @@ div{
     justify-items: start;
 }
 .logo{
-    width: 15vh;
+    width: 20vh;
     margin: 40px;
 }
 .phrase{

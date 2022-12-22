@@ -3,7 +3,7 @@
         <div class="formContainer">
             <v-form>
                 <v-container>
-                    <!-- <p>Log In</p> -->
+                    <p>Log In</p>
                     <v-row>
                         <v-col
                         cols="12"
@@ -22,7 +22,7 @@
                         >
                             <v-text-field
                             v-model="password"
-                            :rules="passwordRules"
+                            type="password"
                             label="Password"
                             required
                             ></v-text-field>
@@ -34,6 +34,7 @@
                 @click="clientLogin"
                 outlined
                 >Submit</v-btn>
+                <p class="error" v-if="loginError">{{ loginError }}</p>
             </v-form>
         </div>
     </div>
@@ -42,7 +43,7 @@
 <script>
 import axios from "axios";
 import cookies from 'vue-cookies';
-// import router from '@/router';
+import router from '@/router';
 
     export default {
         name: "ClientLogin",
@@ -54,9 +55,7 @@ import cookies from 'vue-cookies';
                     v => !!v || 'E-mail is required',
                     v => /.+@.+/.test(v) || 'E-mail must be valid'
                 ],
-                nameRules: [
-                    v => !!v || 'Name is required',
-                ],
+                password: "",
                 loginError: "",
             }
         },
@@ -65,18 +64,26 @@ import cookies from 'vue-cookies';
                 axios.request({
                     url: "https://foodierest.ml/api/client-login",
                     method: "POST",
+                    headers: {
+                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                    },
                     data: {
-                        // LEFT OFFF HERE
-                        firstname: this.firstname.value,
-                        lastname: this.lastname.value,
-                        email: this.email.value,
-                    }
+                        email: this.email,
+                        password: this.password,
+                    },
                 }).then((response)=>{
-                    // router.push("/homepage");
+                    // send to Discover page after successful login
+                    router.push("/discover");
+                    // set Session Token cookie after successful login
                     cookies.set(`sessionToken`, response.data.token);
                 }).catch((error)=>{
+                    // let error be this.loginError
                     this.loginError = error;
+                    // then display my text if there is an error
                     this.loginError = "Incorrect Email or Password"
+                    // clear text boxes after failure so user can re-enter information
+                    this.email = "";
+                    this.password = "";
                 })
             }
         },
@@ -84,11 +91,6 @@ import cookies from 'vue-cookies';
 </script>
 
 <style scoped>
-/* .formContainer{
-    background-image: url(../assets/foodbackground.png);
-    background-repeat:repeat;
-    background-size: cover;
-} */
 .v-form{
     color: white;
     text-align: center;
@@ -96,7 +98,7 @@ import cookies from 'vue-cookies';
     padding: 25px;
     margin: 25px;
     position: absolute;
-    width: 30%;
+    width: 40%;
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
@@ -110,7 +112,14 @@ import cookies from 'vue-cookies';
     background-color: black;
 }
 p{
+    color: black;
+    font-size: 16pt;
     font-weight: bold;
-    font-size: 18pt;
+}
+.error{
+    color: white;
+    font-weight: bold;
+    font-size: 10pt;
+    margin-top: 5px;
 }
 </style>

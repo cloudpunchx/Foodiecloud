@@ -15,11 +15,13 @@
             <ClientSignUp/>
         </div>
 
+        <PageFooter/>
     </div>
 </template>
 
 <script>
 import PageHeader from '@/components/PageHeader.vue'
+import PageFooter from '@/components/PageFooter.vue'
 import ClientLogin from '@/components/ClientLogin.vue'
 import ClientSignUp from '@/components/ClientSignUp.vue'
 
@@ -28,7 +30,8 @@ import ClientSignUp from '@/components/ClientSignUp.vue'
         components: {
             PageHeader,
             ClientLogin,
-            ClientSignUp
+            ClientSignUp,
+            PageFooter
         },
         data() {
             return {
@@ -51,7 +54,7 @@ import ClientSignUp from '@/components/ClientSignUp.vue'
     background-color: black;
     position: absolute;
     top: 21.5%;
-    left: 51.5%;
+    left: 51%;
     transform: translateX(-50%);
 }
 </style>

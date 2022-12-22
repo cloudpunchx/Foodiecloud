@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import ClientLogInSignUp from '@/views/ClientLogInSignUp'
+import ClientLogInSignUp from '@/views/ClientLogInSignUp';
+import DiscoverPage from '@/views/DiscoverPage.vue';
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,23 @@ const routes = [
       {
         name: "description",
         content: "Sign Up or Log In to Foodiecloud!"
+      },
+      {
+        name: "author",
+        content: "Siobhan Bonardi"
+      }
+    ]
+  },
+  {
+    path: "/discover",
+    component: DiscoverPage,
+    meta: [
+      {
+        title: "Hungry?"
+      },
+      {
+        name: "description",
+        content: "Discover amazing restaurants and fast food without leaving where you are!"
       },
       {
         name: "author",

@@ -1,10 +1,36 @@
+<!-- Come back to: -->
+<!-- 2nd password box to verify entry? -->
+<!-- :rules ? -->
+
 <template>
     <div>
         <div class="formContainer">
             <v-form>
                 <v-container>
-                    <!-- <p>Sign Up</p> -->
+                    <p>Sign Up</p>
                     <v-row>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="email"
+                            :rules="emailRules"
+                            label="E-mail"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="username"
+                            :rules="nameRules"
+                            label="Username"
+                            required
+                            ></v-text-field>
+                        </v-col>
                         <v-col
                         cols="12"
                         md="6"
@@ -31,31 +57,33 @@
                         cols="12"
                         md="6"
                         >
+                        <!-- :rules="passwordRules" do we need? -->
                             <v-text-field
-                            v-model="email"
-                            :rules="emailRules"
-                            label="E-mail"
+                            v-model="password"
+                            label="Password"
                             required
                             ></v-text-field>
                         </v-col>
-                        <v-col
+                        <!-- COME BACK TO THIS LATER, CONFIRM PASSWORD SETTING -->
+                        <!-- <v-col
                         cols="12"
                         md="6"
                         >
                             <v-text-field
                             v-model="password"
                             :rules="passwordRules"
-                            label="Password"
+                            label="Re-Enter Password"
                             required
                             ></v-text-field>
-                        </v-col>
+                        </v-col> -->
                     </v-row>
                 </v-container>
                 <v-btn
                 elevation="2"
-                @click="clientLogin"
+                @click="clientSignUp"
                 outlined
                 >Submit</v-btn>
+                <p class="error" v-if="signUpError">{{ signUpError }}</p>
             </v-form>
         </div>
     </div>
@@ -64,43 +92,59 @@
 <script>
 import axios from "axios";
 import cookies from 'vue-cookies';
-// import router from '@/router';
+import router from '@/router';
 
     export default {
         name: "ClientSignUp",
         data() {
             return {
                 valid: false,
-                firstname: "",
-                lastname: "",
-                nameRules: [
-                    v => !!v || 'Name is required',
-                ],
                 email: "",
                 emailRules: [
                     v => !!v || 'E-mail is required',
                     v => /.+@.+/.test(v) || 'E-mail must be valid'
                 ],
-                loginError: "",
+                username: "",
+                firstname: "",
+                lastname: "",
+                nameRules: [
+                    v => !!v || 'Name is required',
+                ],
+                password: "",
+                signUpError: "",
             }
         },
         methods: {
-            clientLogin() {
+            clientSignUp() {
                 axios.request({
-                    url: "https://foodierest.ml/api/client-login",
+                    url: "https://foodierest.ml/api/client",
                     method: "POST",
+                    headers: {
+                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                    },
                     data: {
-                        // LEFT OFFF HERE
-                        firstname: this.firstname.value,
-                        lastname: this.lastname.value,
-                        email: this.email.value,
-                    }
+                        email: this.email,
+                        username: this.username,
+                        firstName: this.firstname,
+                        lastName: this.lastname,
+                        password: this.password,
+                    },
                 }).then((response)=>{
-                    // router.push("/homepage");
+                    // send to Discover page after successful login
+                    router.push("/discover");
+                    // set Session Token cookie after successful login
                     cookies.set(`sessionToken`, response.data.token);
                 }).catch((error)=>{
-                    this.loginError = error;
-                    this.loginError = "Incorrect Email or Password"
+                    // let error be this.loginError
+                    this.signUpError = error;
+                    // then display my text if there is an error
+                    this.signUpError = "Something went wrong, try again."
+                    // clear text boxes after failure so user can re-enter information
+                    this.email = "";
+                    this.username = "";
+                    this.firstname = "";
+                    this.lastname = "";
+                    this.password = "";
                 })
             }
         },
@@ -115,7 +159,7 @@ import cookies from 'vue-cookies';
     padding: 25px;
     margin: 25px;
     position: absolute;
-    width: 30%;
+    width: 40%;
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
@@ -129,7 +173,14 @@ import cookies from 'vue-cookies';
     background-color: black;
 }
 p{
+    color: black;
     font-weight: bold;
-    font-size: 18pt;
+    font-size: 16pt;
+}
+.error{
+    color: white;
+    font-weight: bold;
+    font-size: 10pt;
+    margin-top: 5px;
 }
 </style>
