@@ -1,7 +1,7 @@
 <template>
     <div>
-        <img class="logo" src="../assets/foodiecloud1.png" alt="Foodiecloud Logo">
-        <img class="phrase" src="../assets/foodiecloud2.png" alt="Foodiecloud phrase">
+        <img class="logo" src="../assets/foodiecloudNew.png" alt="Foodiecloud Logo">
+        <img class="phrase" src="../assets/foodiecloudPhrase.png" alt="Foodiecloud phrase">
     </div>
 </template>
 
@@ -14,19 +14,23 @@
 <style scoped>
 div{
     /* background-image: linear-gradient(to bottom, rgba(135, 135, 135, 0.238), rgba(135, 135, 135, 0.158)),
-                        url(../assets/giorgio-trovato-H8X-2bchJI8-unsplash.jpg);
-    background-size: cover; */
-    background-image: linear-gradient(#F3E8EE, #F3E8EE, white);
+                        url(../assets/giorgio-trovato-H8X-2bchJI8-unsplash.jpg); */
+    background-image: linear-gradient(to bottom, rgba(33, 33, 33, 0.436), rgba(67, 66, 66, 0.158)), 
+                    url(../assets/topviewtable.jpg);
+    background-size: cover;
+    height: 80vh;
     display: grid;
-    justify-items: center;
+    justify-items: start;
 }
 .logo{
-    height: 30vh;
+    width: 15vh;
+    margin: 40px;
 }
 .phrase{
-    width: 15vw;
-    position: relative;
-    top: -50%;
-    left: 2%;
+    width: 25vw;
+    position: absolute;
+    left: 51.5%;
+    top: 16%;
+    transform: translateX(-50%);
 }
 </style>

@@ -3,33 +3,11 @@
         <div class="formContainer">
             <v-form>
                 <v-container>
-                    <p>Log In</p>
+                    <!-- <p>Log In</p> -->
                     <v-row>
                         <v-col
                         cols="12"
-                        md="4"
-                        >
-                            <v-text-field
-                            v-model="firstname"
-                            :rules="nameRules"
-                            label="First Name"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="4"
-                        >
-                            <v-text-field
-                            v-model="lastname"
-                            :rules="nameRules"
-                            label="Last Name"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="4"
+                        md="6"
                         >
                             <v-text-field
                             v-model="email"
@@ -38,11 +16,23 @@
                             required
                             ></v-text-field>
                         </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="password"
+                            :rules="passwordRules"
+                            label="Password"
+                            required
+                            ></v-text-field>
+                        </v-col>
                     </v-row>
                 </v-container>
                 <v-btn
                 elevation="2"
                 @click="clientLogin"
+                outlined
                 >Submit</v-btn>
             </v-form>
         </div>
@@ -51,22 +41,23 @@
 
 <script>
 import axios from "axios";
+import cookies from 'vue-cookies';
+// import router from '@/router';
 
     export default {
         name: "ClientLogin",
         data() {
             return {
                 valid: false,
-                firstname: "",
-                lastname: "",
-                nameRules: [
-                    v => !!v || 'Name is required',
-                ],
                 email: "",
                 emailRules: [
                     v => !!v || 'E-mail is required',
                     v => /.+@.+/.test(v) || 'E-mail must be valid'
                 ],
+                nameRules: [
+                    v => !!v || 'Name is required',
+                ],
+                loginError: "",
             }
         },
         methods: {
@@ -76,10 +67,16 @@ import axios from "axios";
                     method: "POST",
                     data: {
                         // LEFT OFFF HERE
-                        firstname: this.firstname,
-                        lastname: this.lastname,
-                        email: this.email,
+                        firstname: this.firstname.value,
+                        lastname: this.lastname.value,
+                        email: this.email.value,
                     }
+                }).then((response)=>{
+                    // router.push("/homepage");
+                    cookies.set(`sessionToken`, response.data.token);
+                }).catch((error)=>{
+                    this.loginError = error;
+                    this.loginError = "Incorrect Email or Password"
                 })
             }
         },
@@ -87,26 +84,30 @@ import axios from "axios";
 </script>
 
 <style scoped>
-.formContainer{
+/* .formContainer{
     background-image: url(../assets/foodbackground.png);
     background-repeat:repeat;
-}
+    background-size: cover;
+} */
 .v-form{
-    background-color: #F3E8EE;
+    color: white;
+    text-align: center;
+    background-color: whitesmoke;
     padding: 25px;
     margin: 25px;
-    position: relative;
+    position: absolute;
     width: 30%;
+    top: 25%;
     left: 50%;
     transform: translateX(-50%);
-    border: 2px solid black;
+    border: 3px solid black;
     border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .v-btn{
     font-size: 12pt;
-    width: 25%;
-    left: 37%;
+    color: white;
+    background-color: black;
 }
 p{
     font-weight: bold;
