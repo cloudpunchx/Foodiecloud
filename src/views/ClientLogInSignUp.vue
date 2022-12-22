@@ -14,7 +14,7 @@
         <div>
             <v-btn
             elevation="2"
-            @click="loginSignUp"
+            @click="toggleLogInSignUp"
             outlined
             >{{ buttonText }}</v-btn>
             <ClientLogin/>
@@ -44,12 +44,14 @@ import ClientSignUp from '@/components/ClientSignUp.vue'
         },
         data() {
             return {
+                // we need to set the text up to initially say Sign Up, then we have a toggle to change it
                 buttonText: "Sign Up",
                 signUp: false
             }
         },
         methods: {
-            loginSignUp() {
+            // this function toggles my text from Log In to Sign Up on button click
+            toggleLogInSignUp() {
                 this.signUp = !this.signUp;
                 this.buttonText = this.signUp ? "Log In" : "Sign Up";
             }
