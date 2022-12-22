@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import ClientLogInSignUp from '@/views/ClientLogInSignUp';
+import RestaurantLogInSignUp from '@/views/RestaurantLogInSignUp';
 import DiscoverPage from '@/views/DiscoverPage.vue';
 
 Vue.use(VueRouter)
@@ -19,6 +20,31 @@ const routes = [
         content: "Sign Up or Log In to Foodiecloud!"
       },
       {
+        name: "keywords",
+        content: "log in, sign up, foodiecloud, food to go, food delivery service, local restaurants, fast delivery"
+      },
+      {
+        name: "author",
+        content: "Siobhan Bonardi"
+      }
+    ]
+  },
+  {
+    path: "/restaurantlogin",
+    component: RestaurantLogInSignUp,
+    meta: [
+      {
+        title: "Sign Up or Log In"
+      },
+      {
+        name: "description",
+        content: "Sign Up or Log In to Foodiecloud to grow your business today!"
+      },
+      {
+        name: "keywords",
+        content: "log in, sign up, foodiecloud, small business, local restaurants, food delivery service, fast delivery, grow your restaurant"
+      },
+      {
         name: "author",
         content: "Siobhan Bonardi"
       }
@@ -34,6 +60,10 @@ const routes = [
       {
         name: "description",
         content: "Discover amazing restaurants and fast food without leaving where you are!"
+      },
+      {
+        name: "keywords",
+        content: "foodiecloud, food to go, food delivery service, local restaurants, fast delivery, take out, take away, food now, discover restaurants, asian food, italian food, mexican food, american food"
       },
       {
         name: "author",

@@ -2,12 +2,21 @@
     <div>
         <PageHeader/>
 
+        <!-- Router link to Restaurant Login/Sign Up Page -->
+        <router-link to="/restaurantlogin"
+        ><v-btn
+        class="restaurantLink"
+        elevation="2"
+        outlined>
+            Restaurant Log In
+        </v-btn></router-link>
+
         <div>
             <v-btn
-                elevation="2"
-                @click="loginSignUp"
-                outlined
-                >{{ buttonText }}</v-btn>
+            elevation="2"
+            @click="loginSignUp"
+            outlined
+            >{{ buttonText }}</v-btn>
             <ClientLogin/>
         </div>
 
@@ -56,5 +65,9 @@ import ClientSignUp from '@/components/ClientSignUp.vue'
     top: 21.5%;
     left: 51%;
     transform: translateX(-50%);
+}
+.restaurantLink{
+    top: 5%;
+    left: 90%;
 }
 </style>
