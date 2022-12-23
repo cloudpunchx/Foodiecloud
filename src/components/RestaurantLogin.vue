@@ -5,7 +5,7 @@
         <div class="formContainer">
             <v-form>
                 <v-container>
-                    <p>Log In</p>
+                    <p>Restaurant Log In</p>
                     <v-row>
                         <v-col
                         cols="12"

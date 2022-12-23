@@ -3,7 +3,7 @@
         <PageHeader/>
 
         <!-- Router link to Client Login/Sign Up Page -->
-        <router-link to="/login"
+        <router-link to="/"
         ><v-btn
         class="clientLink"
         elevation="2"

@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/login",
+    path: "/",
     component: ClientLogInSignUp,
     meta: [
       {
