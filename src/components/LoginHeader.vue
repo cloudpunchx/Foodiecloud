@@ -13,8 +13,6 @@
 
 <style scoped>
 div{
-    /* background-image: linear-gradient(to bottom, rgba(135, 135, 135, 0.238), rgba(135, 135, 135, 0.158)),
-                        url(../assets/giorgio-trovato-H8X-2bchJI8-unsplash.jpg); */
     background-image: linear-gradient(to bottom, rgba(33, 33, 33, 0.436), rgba(67, 66, 66, 0.158)), 
                     url(../assets/topviewtable.jpg);
     background-size: cover;

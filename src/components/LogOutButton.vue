@@ -1,3 +1,5 @@
+<!-- need to make Log Out for restaurant, but also remember Restaurant shouldn't land on Discover page anyways -->
+
 <template>
     <div>
         <v-btn
@@ -32,7 +34,7 @@ import router from '@/router';
                     // return to log in page after logout
                     router.push("/");
                 }).catch((error)=>{
-                    error = "Unexpected error occured, try again."
+                    error = "Unexpected error occurred, try again."
                     alert(error)
                 })
             }

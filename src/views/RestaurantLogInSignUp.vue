@@ -1,6 +1,6 @@
 <template>
     <div>
-        <PageHeader/>
+        <LoginHeader/>
 
         <!-- Router link to Client Login/Sign Up Page -->
         <router-link to="/"
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import PageHeader from '@/components/PageHeader.vue'
+import LoginHeader from '@/components/LoginHeader.vue'
 import RestaurantLogin from '@/components/RestaurantLogin.vue'
 import RestaurantSignUp from '@/components/RestaurantSignUp.vue'
 import PageFooter from '@/components/PageFooter.vue'
@@ -37,7 +37,7 @@ import PageFooter from '@/components/PageFooter.vue'
     export default {
         name: "RestaurantLogInSignUp",
         components: {
-            PageHeader,
+            LoginHeader,
             RestaurantLogin,
             RestaurantSignUp,
             PageFooter
