@@ -1,7 +1,6 @@
 <template>
     <div>
         <img src="../assets/cloudpunchMedia.png" alt="Cloudpunch Media">
-        <!-- I'm not totally sure if I'm allowed to say Copyright? -->
         <p>Copyright © 2022 Cloudpunch Media</p>
     </div>
 </template>
