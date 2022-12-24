@@ -1,6 +1,8 @@
 <template>
     <div>
-        <img class="logo" src="../assets/foodiecloudNew.png" alt="Foodiecloud Logo">
+        <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
+        
+        <!-- MIGHT CHANGE THIS PHRASE OR REMOVE  -->
         <img class="phrase" src="../assets/foodiecloudPhrase.png" alt="Foodiecloud phrase">
     </div>
 </template>
@@ -13,7 +15,7 @@
 
 <style scoped>
 div{
-    background-image: linear-gradient(to bottom, rgba(33, 33, 33, 0.436), rgba(67, 66, 66, 0.158)), 
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.255), rgba(239, 237, 237, 0.101)), 
                     url(../assets/topviewtable.jpg);
     background-size: cover;
     height: 80vh;

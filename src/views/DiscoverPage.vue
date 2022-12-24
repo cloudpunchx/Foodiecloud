@@ -1,11 +1,14 @@
 <!-- Come back and fix error, make it better in AXIOS call -->
 <!-- not sure if bannerUrl works in template v-card, check after putting bannerurl in a restaurant -->
+<!-- not sure if profile url works, check after -->
 
 <template>
     <div>
         <InsideHeader/>
 
         <LogOutButton/>
+
+        <img class="phrase" src="../assets/whateveryourmood.png" alt="We've got what you want">
 
         <v-card
         outlined
@@ -22,10 +25,19 @@
             <p class="address">
                 {{restaurants.address}}
                 {{restaurants.city}}
-            <!-- need to add url to restaurant page -->
             </p>
+            <!-- need to add url to restaurant page -->
+            <!-- need to add @click -->
+            <v-btn
+            elevation="2"
+            outlined
+            @click="$router.push('{{ restaurants.profileUrl }}')"
+            >
+                Order
+            </v-btn>
         </v-card>
 
+        <!-- need to add button to each restaurant div that leads to their page -->
         <v-carousel
         hide-delimiters
         hide-delimiter-background
@@ -81,6 +93,9 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
                     {
                         src: "https://img.freepik.com/free-photo/top-view-bowls-with-indian-food_23-2148723454.jpg?w=1380&t=st=1671865643~exp=1671866243~hmac=6c62bb36281b8d679bdf3baddb23ec6ffca987e483d62d5c19c0dac8016dc01a"
                     },
+                    {
+                        src: "https://img.freepik.com/free-photo/assortment-pieces-cake_114579-30731.jpg?w=1380&t=st=1671868467~exp=1671869067~hmac=9e9e99a170abedb2a42df38ea3d056450298885370964424f5ae6ad92d10f5f1"
+                    },
                 ]
             }
         },
@@ -108,9 +123,16 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
 </script>
 
 <style scoped>
+.phrase{
+    width: 33vw;
+    position: absolute;
+    top: 8%;
+    left: 51%;
+    transform: translateX(-50%);
+}
 .v-card{
     color: black;
-    background-color: rgb(240, 255, 253);
+    background-color: white;
     text-align: center;
     padding: 15px;
     margin: 20px;
@@ -129,11 +151,19 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
 .address{
     font-size: 10pt;
 }
+.v-btn{
+    color: white;
+    background-color: black;
+    width: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .v-carousel{
-    width: 90%;
+    width: 100%;
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    top: 12%;
+    top: 11%;
 }
+
 </style>

@@ -3,7 +3,9 @@ import VueRouter from 'vue-router'
 
 import ClientLogInSignUp from '@/views/ClientLogInSignUp';
 import RestaurantLogInSignUp from '@/views/RestaurantLogInSignUp';
+import RestaurantProfile from '@/views/RestaurantProfile';
 import DiscoverPage from '@/views/DiscoverPage.vue';
+import CloudpunchPizzeria from '@/views/CloudpunchPizzeria.vue';
 
 Vue.use(VueRouter)
 
@@ -51,6 +53,27 @@ const routes = [
     ]
   },
   {
+    path: "/restaurant-profile",
+    component: RestaurantProfile,
+    meta: [
+      {
+        title: "Your Profile"
+      },
+      {
+        name: "description",
+        content: "Review your Foodiecloud account information, delete your account, change password or other information."
+      },
+      {
+        name: "keywords",
+        content: "foodiecloud, food delivery, your profile, local restaurant, fast delivery"
+      },
+      {
+        name: "author",
+        content: "Siobhan Bonardi"
+      }
+    ]
+  },
+  {
     path: "/discover",
     component: DiscoverPage,
     meta: [
@@ -70,7 +93,28 @@ const routes = [
         content: "Siobhan Bonardi"
       }
     ]
-  }
+  },
+  {
+    path: "/cloudpunchpizzeria",
+    component: CloudpunchPizzeria,
+    meta: [
+      {
+        title: "Cloudpunch Pizzeria"
+      },
+      {
+        name: "description",
+        content: "Cloudpunch Pizzeria makes fresh, authentic Neapolitan pizza in Edmonton, Alberta."
+      },
+      {
+        name: "keywords",
+        content: "pizza, pizzeria, cloudpunch pizzeria, italian food, italian restaurant, local restaurant, fast delivery"
+      },
+      {
+        name: "author",
+        content: "Siobhan Bonardi"
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({

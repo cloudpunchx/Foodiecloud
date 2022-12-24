@@ -78,6 +78,7 @@ import router from '@/router';
                     router.push("/discover");
                     // set Session Token cookie after successful login
                     cookies.set(`sessionToken`, response.data.token);
+                    cookies.set(`restaurantId`, response.data.restaurantId);
                 }).catch((error)=>{
                     // let error be this.loginError
                     this.loginError = error;
