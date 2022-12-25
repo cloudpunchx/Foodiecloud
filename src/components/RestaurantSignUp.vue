@@ -138,7 +138,7 @@ import router from '@/router';
                     },
                 }).then((response)=>{
                     // send to Discover page after successful login
-                    router.push("/discover");
+                    router.push("/restaurant/settings/account");
                     // set Session Token cookie after successful login
                     cookies.set(`sessionToken`, response.data.token);
                     cookies.set(`restaurantId`, response.data.restaurantId);

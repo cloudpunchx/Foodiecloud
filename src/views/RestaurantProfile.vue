@@ -1,11 +1,7 @@
 <template>
     <div>
         <InsideHeader/>
-        <LogOutButton/>
-
-        <!-- add field on the rhs for editing account info -->
-        <!-- PATCH to API -->
-        <!-- confirm changes and refresh to show updated info -->
+        <RestaurantLogOut/>
 
         <!-- after this, add the profile urls and test discovery page link to public page -->
 
@@ -17,7 +13,7 @@
 
 <script>
 import InsideHeader from '@/components/InsideHeader.vue'
-import LogOutButton from '@/components/LogOutButton.vue';
+import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
 import RestaurantEdit from '@/components/RestaurantEdit.vue';
 import InsidePageFooter from '@/components/InsidePageFooter.vue';
 
@@ -25,7 +21,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
         name: "RestaurantProfile",
         components: {
             InsideHeader,
-            LogOutButton,
+            RestaurantLogOut,
             RestaurantEdit,
             InsidePageFooter
         },

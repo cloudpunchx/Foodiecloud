@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import ClientLogInSignUp from '@/views/ClientLogInSignUp';
+import ClientProfile from '@/views/ClientProfile';
 import RestaurantLogInSignUp from '@/views/RestaurantLogInSignUp';
 import RestaurantProfile from '@/views/RestaurantProfile';
 import DiscoverPage from '@/views/DiscoverPage.vue';
@@ -32,7 +33,28 @@ const routes = [
     ]
   },
   {
-    path: "/restaurantlogin",
+    path: "/user/settings/account",
+    component: ClientProfile,
+    meta: [
+      {
+        title: "Your Profile"
+      },
+      {
+        name: "description",
+        content: "Review your Foodiecloud account information, delete your account, change password or other information."
+      },
+      {
+        name: "keywords",
+        content: "foodiecloud, food delivery, your profile, local restaurant, fast delivery"
+      },
+      {
+        name: "author",
+        content: "Siobhan Bonardi"
+      }
+    ]
+  },
+  {
+    path: "/restaurant/login",
     component: RestaurantLogInSignUp,
     meta: [
       {
@@ -53,7 +75,7 @@ const routes = [
     ]
   },
   {
-    path: "/restaurant-profile",
+    path: "/restaurant/settings/account",
     component: RestaurantProfile,
     meta: [
       {

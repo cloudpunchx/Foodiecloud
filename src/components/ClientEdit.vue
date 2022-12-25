@@ -1,29 +1,25 @@
-<!-- Note, for bannerurl, put an upload img button on page? -->
-<!-- work on errors better -->
-<!-- need to format and design -->
+<!-- need to get Client PATCH working -->
+<!-- got it working once already not sure how -->
 
 <template>
-    <div> 
+    <div>
         <!-- this div will be GET -->
         <div>
             <v-card
             outlined
             tile
             class="d-flex flex-column justify-center mb-6"
-            v-for="restaurant in restaurant"
-            :key="restaurant.restaurantId"
+            v-for="client in client"
+            :key="client.clientId"
             cols="3"
             sm="3"
             >
-            <h2>Welcome {{ restaurant.name }}!</h2>
-            <img :src="restaurant.bannerUrl">
-            <p>Bio: {{restaurant.bio}}</p>
-            <p>
-                Address: {{restaurant.address}},
-                {{restaurant.city}}
-            </p>
-            <p>E-mail: {{restaurant.email}}</p>
-            <p>Ph #: {{restaurant.phoneNum}}</p>
+            <img :src="client.pictureUrl"> 
+            <h2>Welcome {{ client.username }}!</h2>
+            <p>First Name: {{ client.firstName }}</p>
+            <p>Last Name: {{ client.lastName }}</p>
+            <p>E-mail: {{client.email}}</p>
+            <p>Member Since: {{client.createdAt}}</p>
             </v-card>
         </div>
 
@@ -37,8 +33,8 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="name"
-                            label="Restaurant Name"
+                            v-model="email"
+                            label="E-mail"
                             required
                             ></v-text-field>
                         </v-col>
@@ -47,8 +43,8 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="address"
-                            label="Address"
+                            v-model="username"
+                            label="User Name"
                             required
                             ></v-text-field>
                         </v-col>
@@ -57,8 +53,8 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="bio"
-                            label="Bio"
+                            v-model="pictureUrl"
+                            label="Picture URL"
                             required
                             ></v-text-field>
                         </v-col>
@@ -67,8 +63,8 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="city"
-                            label="City"
+                            v-model="firstName"
+                            label="First Name"
                             required
                             ></v-text-field>
                         </v-col>
@@ -77,8 +73,18 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="phoneNum"
-                            label="Phone Number"
+                            v-model="lastName"
+                            label="Last Name"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="password"
+                            label="Password"
                             required
                             ></v-text-field>
                         </v-col>
@@ -92,6 +98,7 @@
                 <p v-if="editAlert" class="editAlert">{{editAlert}}</p>
             </v-form>
         </div>
+
     </div>
 </template>
 
@@ -100,35 +107,38 @@ import axios from "axios";
 import cookies from 'vue-cookies';
 
     export default {
-        name: "RestaurantEdit",
+        name: "ClientEdit",
         data() {
             return {
-                restaurantId: null,
-                restaurant: [],
-                valid: false,
+                clientId: null,
                 token: "",
-                name: "",
-                address: "",
-                bio: "",
-                city: "",
-                phoneNum: "",
+                client: [],
+                valid: false,
+                username: "",
+                firstName: "",
+                lastName: "",
+                pictureUrl: "",
+                email: "",
+                password: "",
+                createdAt: "",
                 editAlert: "",
             }
         },
         methods: {
             getProfile() {
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant",
+                    url: "https://foodierest.ml/api/client",
                     method: "GET",
                     headers: {
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        token: this.token,
                     },
                     params: {
                         // using variable we took from the cookie and using it as a param
-                        restaurantId: this.restaurantId,
+                        clientId: this.clientId,
                     }
                 }).then((response)=>{
-                    this.restaurant = response.data;
+                    this.client = response.data;
                 }).catch((error)=>{
                     error = "Something went wrong, please try again."
                     alert(error);
@@ -136,22 +146,23 @@ import cookies from 'vue-cookies';
             },
             editProfile(){
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant",
+                    url: "https://foodierest.ml/api/client",
                     method: "PATCH",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                         token: this.token, 
+                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                     },
                     data: {
-                        name: this.name,
-                        address: this.address,
-                        bio: this.bio,
-                        city: this.city,
-                        phoneNum: this.phoneNum,
+                        email: this.email,
+                        username: this.username,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        password: this.password,
+                        pictureUrl: this.pictureUrl,
                     },
                     params: {
                         // using variable we took from the cookie and using it as a param so we edit this profile
-                        restaurantId: this.restaurantId,
+                        clientId: this.clientId,
                     }
                 }).then(()=>{
                     this.editAlert = "Profile updated successfully!"
@@ -160,27 +171,27 @@ import cookies from 'vue-cookies';
                     this.getProfile();
                 }).catch((error)=>{
                     this.editAlert = error;
-                    this.editAlert = "Something went wrong. Phone Number must contain dashes XXX-XXX-XXXX";
+                    this.editAlert = "Something went wrong, please try again.";
                     this.clearTextBox();
                     // refresh page
                 })
             },
-            getRestaurantId(){
+            getClientId(){
                 // grabbing restaurantId from cookie, putting it into variable
-                this.restaurantId = cookies.get(`restaurantId`);
+                this.clientId = cookies.get(`clientId`);
                 this.token = cookies.get(`sessionToken`);
             },
             clearTextBox(){
-                this.name = "";
-                this.address = "";
-                this.bio = "";
-                this.city = "";
-                this.phoneNum = "";
+                this.email = "",
+                this.username = "";
+                this.firstName = "";
+                this.lastName = "";
+                this.password = "";
+                this.pictureUrl = "";
             }
         },
         created () {
-            // when you get to this page, run these functions
-            this.getRestaurantId();
+            this.getClientId();
             this.getProfile();
         },
     }
@@ -209,12 +220,11 @@ import cookies from 'vue-cookies';
     transform: translateX(-50%);
     margin-bottom: 50px;
 }
-.editAlert{
-    color: rgb(124, 0, 0);
-    font-weight: bold;
-    font-size: 10pt;
-}
-h2{
-    margin-bottom: 10px;
+img{
+    width: 10vw;
+    position: absolute;
+    left: 10%;
+    border: 1px solid black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 </style>

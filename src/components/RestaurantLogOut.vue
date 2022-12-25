@@ -1,3 +1,5 @@
+<!-- need to make Log Out for restaurant, but also remember Restaurant shouldn't land on Discover page anyways -->
+
 <template>
     <div>
         <v-btn
@@ -16,11 +18,11 @@ import cookies from 'vue-cookies';
 import router from '@/router';
 
     export default {
-        name: "LogOutButton",
+        name: "RestaurantLogOut",
         methods: {
             logOut() {
                 axios.request({
-                    url: "https://foodierest.ml/api/client-login",
+                    url: "https://foodierest.ml/api/restaurant-login",
                     method: "DELETE",
                     headers: {
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
@@ -29,7 +31,7 @@ import router from '@/router';
                 }).then(()=>{
                     this.token = cookies.get(`sessionToken`);
                     cookies.remove(`sessionToken`);
-                    cookies.remove(`clientId`);
+                    cookies.remove(`restaurantId`);
                     // return to log in page after logout
                     router.push("/");
                 }).catch((error)=>{

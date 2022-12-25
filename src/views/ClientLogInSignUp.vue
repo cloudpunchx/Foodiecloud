@@ -3,7 +3,7 @@
         <LoginHeader/>
 
         <!-- Router link to Restaurant Login/Sign Up Page -->
-        <router-link to="/restaurantlogin"
+        <router-link to="/restaurant/login"
         ><v-btn
         class="restaurantLink"
         elevation="2"
