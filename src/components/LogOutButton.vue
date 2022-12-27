@@ -47,6 +47,6 @@ import router from '@/router';
     background-color: black;
     position: absolute;
     top: 2%;
-    left: 89%;
+    left: 93%;
 }
 </style>

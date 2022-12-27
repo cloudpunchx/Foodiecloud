@@ -1,26 +1,27 @@
 <template>
     <div>
-        <InsideHeader/>
-        <LogOutButton/>
+        <ClientHeader/>
 
         <ClientEdit/>
+
+        <ClientDelete/>
 
         <InsidePageFooter/>
     </div>
 </template>
 
 <script>
-import InsideHeader from '@/components/InsideHeader.vue'
-import LogOutButton from '@/components/LogOutButton.vue';
+import ClientHeader from '@/components/ClientHeader.vue'
 import ClientEdit from '@/components/ClientEdit.vue';
+import ClientDelete from '@/components/ClientDelete.vue';
 import InsidePageFooter from '@/components/InsidePageFooter.vue';
 
     export default {
         name: "ClientProfile",
         components: {
-            InsideHeader,
-            LogOutButton,
+            ClientHeader,
             ClientEdit,
+            ClientDelete,
             InsidePageFooter
         }
     }

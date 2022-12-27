@@ -1,12 +1,19 @@
 <template>
     <div>
         <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
+
+        <RestaurantLogOut/>
     </div>
 </template>
 
 <script>
+import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
+
     export default {
-        name: "InsideHeader"
+        name: "RestaurantHeader",
+        components: {
+            RestaurantLogOut
+        }
     }
 </script>
 

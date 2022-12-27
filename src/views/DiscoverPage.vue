@@ -2,11 +2,23 @@
 <!-- not sure if bannerUrl works in template v-card, check after putting bannerurl in a restaurant -->
 <!-- not sure if profile url works, check after -->
 
+<!-- maybe make my account button a component later? -->
+
 <template>
     <div>
-        <InsideHeader/>
+        <ClientHeader/>
 
-        <LogOutButton/>
+        <div>
+            <router-link to="/user/settings/account"
+            ><v-btn
+            class="profileButton"
+            elevation="2"
+            outlined>
+            My Account
+            </v-btn></router-link>
+
+        </div>
+
 
         <img class="phrase" src="../assets/whateveryourmood.png" alt="We've got what you want">
 
@@ -62,15 +74,13 @@
 <script>
 import axios from "axios";
 
-import InsideHeader from '@/components/InsideHeader.vue'
-import LogOutButton from '@/components/LogOutButton.vue';
+import ClientHeader from '@/components/ClientHeader.vue'
 import InsidePageFooter from '@/components/InsidePageFooter.vue'
 
     export default {
         name: "DiscoverPage",
         components: {
-            InsideHeader,
-            LogOutButton,
+            ClientHeader,
             InsidePageFooter
         },
         data() {
@@ -157,6 +167,12 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
     width: 20%;
     left: 50%;
     transform: translateX(-50%);
+}
+.profileButton{
+    width: 12%;
+    position: absolute;
+    top: 2%;
+    left: 87%;
 }
 .v-carousel{
     width: 100%;

@@ -1,5 +1,5 @@
-<!-- need to get Client PATCH working -->
-<!-- got it working once already not sure how -->
+<!-- fix button layouts -->
+<!-- PATCH is only working on the first time you do it, why? -->
 
 <template>
     <div>
@@ -33,28 +33,8 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="email"
-                            label="E-mail"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
                             v-model="username"
                             label="User Name"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
-                            v-model="pictureUrl"
-                            label="Picture URL"
                             required
                             ></v-text-field>
                         </v-col>
@@ -88,6 +68,16 @@
                             required
                             ></v-text-field>
                         </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="pictureUrl"
+                            label="Picture URL"
+                            required
+                            ></v-text-field>
+                        </v-col>
                     </v-row>
                 </v-container>
                 <v-btn
@@ -111,9 +101,9 @@ import cookies from 'vue-cookies';
         data() {
             return {
                 clientId: null,
-                token: "",
                 client: [],
                 valid: false,
+                token: "",
                 username: "",
                 firstName: "",
                 lastName: "",
@@ -140,8 +130,8 @@ import cookies from 'vue-cookies';
                 }).then((response)=>{
                     this.client = response.data;
                 }).catch((error)=>{
-                    error = "Something went wrong, please try again."
-                    alert(error);
+                    this.editAlert = error;
+                    this.editAlert = "Something went wrong, please try again."
                 })
             },
             editProfile(){
@@ -149,35 +139,31 @@ import cookies from 'vue-cookies';
                     url: "https://foodierest.ml/api/client",
                     method: "PATCH",
                     headers: {
-                        token: this.token, 
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        token: this.token,
+                    },
+                    params: {
+                        clientId: this.clientId
                     },
                     data: {
-                        email: this.email,
                         username: this.username,
                         firstName: this.firstName,
                         lastName: this.lastName,
                         password: this.password,
                         pictureUrl: this.pictureUrl,
-                    },
-                    params: {
-                        // using variable we took from the cookie and using it as a param so we edit this profile
-                        clientId: this.clientId,
                     }
                 }).then(()=>{
-                    this.editAlert = "Profile updated successfully!"
+                    this.editAlert = 'Profile updated successfully!'
                     this.clearTextBox();
-                    // reload GET info to show updated profile data
-                    this.getProfile();
+                    // this.getProfile();
                 }).catch((error)=>{
                     this.editAlert = error;
-                    this.editAlert = "Something went wrong, please try again.";
+                    this.editAlert = "Something went wrong, please try again."
                     this.clearTextBox();
-                    // refresh page
                 })
             },
             getClientId(){
-                // grabbing restaurantId from cookie, putting it into variable
+                // grabbing clientId from cookie, putting it into variable
                 this.clientId = cookies.get(`clientId`);
                 this.token = cookies.get(`sessionToken`);
             },

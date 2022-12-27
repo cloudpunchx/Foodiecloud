@@ -1,7 +1,6 @@
 <template>
     <div>
-        <InsideHeader/>
-        <RestaurantLogOut/>
+        <RestaurantHeader/>
 
         <!-- after this, add the profile urls and test discovery page link to public page -->
 
@@ -12,16 +11,14 @@
 </template>
 
 <script>
-import InsideHeader from '@/components/InsideHeader.vue'
-import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
+import RestaurantHeader from '@/components/RestaurantHeader.vue'
 import RestaurantEdit from '@/components/RestaurantEdit.vue';
 import InsidePageFooter from '@/components/InsidePageFooter.vue';
 
     export default {
         name: "RestaurantProfile",
         components: {
-            InsideHeader,
-            RestaurantLogOut,
+            RestaurantHeader,
             RestaurantEdit,
             InsidePageFooter
         },
