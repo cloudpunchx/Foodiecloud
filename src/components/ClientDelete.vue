@@ -28,12 +28,8 @@ import cookies from 'vue-cookies';
                     url: "https://foodierest.ml/api/client",
                     method: "DELETE",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                         token: this.token,
-                    },
-                    params: {
-                        // using variable we took from the cookie and using it as a param
-                        clientId: this.clientId,
+                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                     }
                 }).then((response)=>{
                     console.log(response);

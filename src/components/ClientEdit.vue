@@ -3,27 +3,6 @@
 
 <template>
     <div>
-        <!-- this div will be GET -->
-        <div>
-            <v-card
-            outlined
-            tile
-            class="d-flex flex-column justify-center mb-6"
-            v-for="client in client"
-            :key="client.clientId"
-            cols="3"
-            sm="3"
-            >
-            <img :src="client.pictureUrl"> 
-            <h2>Welcome {{ client.username }}!</h2>
-            <p>First Name: {{ client.firstName }}</p>
-            <p>Last Name: {{ client.lastName }}</p>
-            <p>E-mail: {{client.email}}</p>
-            <p>Member Since: {{client.createdAt}}</p>
-            </v-card>
-        </div>
-
-        <!-- this div will be PATCH -->
         <div>
             <v-form>
                 <v-container>
@@ -100,7 +79,7 @@ import cookies from 'vue-cookies';
         name: "ClientEdit",
         data() {
             return {
-                clientId: null,
+                // clientId: null,
                 client: [],
                 valid: false,
                 token: "",
@@ -115,25 +94,6 @@ import cookies from 'vue-cookies';
             }
         },
         methods: {
-            getProfile() {
-                axios.request({
-                    url: "https://foodierest.ml/api/client",
-                    method: "GET",
-                    headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
-                        token: this.token,
-                    },
-                    params: {
-                        // using variable we took from the cookie and using it as a param
-                        clientId: this.clientId,
-                    }
-                }).then((response)=>{
-                    this.client = response.data;
-                }).catch((error)=>{
-                    this.editAlert = error;
-                    this.editAlert = "Something went wrong, please try again."
-                })
-            },
             editProfile(){
                 axios.request({
                     url: "https://foodierest.ml/api/client",
@@ -142,9 +102,9 @@ import cookies from 'vue-cookies';
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                         token: this.token,
                     },
-                    params: {
-                        clientId: this.clientId
-                    },
+                    // params: {
+                    //     clientId: this.clientId
+                    // },
                     data: {
                         username: this.username,
                         firstName: this.firstName,
@@ -162,11 +122,6 @@ import cookies from 'vue-cookies';
                     this.clearTextBox();
                 })
             },
-            getClientId(){
-                // grabbing clientId from cookie, putting it into variable
-                this.clientId = cookies.get(`clientId`);
-                this.token = cookies.get(`sessionToken`);
-            },
             clearTextBox(){
                 this.email = "",
                 this.username = "";
@@ -174,17 +129,21 @@ import cookies from 'vue-cookies';
                 this.lastName = "";
                 this.password = "";
                 this.pictureUrl = "";
-            }
+            },
+            getClientId(){
+                // grabbing clientId from cookie, putting it into variable
+                // this.clientId = cookies.get(`clientId`);
+                this.token = cookies.get(`sessionToken`);
+            },
         },
         created () {
             this.getClientId();
-            this.getProfile();
         },
     }
 </script>
 
 <style scoped>
-.v-card, .v-form{
+.v-form{
     color: black;
     background-color: white;
     text-align: center;
@@ -205,12 +164,5 @@ import cookies from 'vue-cookies';
     left: 50%;
     transform: translateX(-50%);
     margin-bottom: 50px;
-}
-img{
-    width: 10vw;
-    position: absolute;
-    left: 10%;
-    border: 1px solid black;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 </style>

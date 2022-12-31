@@ -100,7 +100,7 @@ import axios from "axios";
 import cookies from 'vue-cookies';
 
     export default {
-        name: "RestaurantEdit",
+        name: "RestaurantEditInfo",
         data() {
             return {
                 restaurantId: null,

@@ -1,6 +1,10 @@
 <template>
     <div>
-        <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
+
+        <!-- change this link to the restaurant public page -->
+        <router-link to="/restaurant">
+            <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
+        </router-link>
 
         <RestaurantLogOut/>
     </div>

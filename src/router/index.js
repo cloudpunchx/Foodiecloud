@@ -5,8 +5,8 @@ import ClientLogInSignUp from '@/views/ClientLogInSignUp';
 import ClientProfile from '@/views/ClientProfile';
 import RestaurantLogInSignUp from '@/views/RestaurantLogInSignUp';
 import RestaurantProfile from '@/views/RestaurantProfile';
-import DiscoverPage from '@/views/DiscoverPage.vue';
-import CloudpunchPizzeria from '@/views/CloudpunchPizzeria.vue';
+import DiscoverPage from '@/views/DiscoverPage';
+import RestaurantPublic from '@/views/RestaurantPublic';
 
 Vue.use(VueRouter)
 
@@ -16,7 +16,7 @@ const routes = [
     component: ClientLogInSignUp,
     meta: [
       {
-        title: "Sign Up or Log In"
+        title: "Foodiecloud | Log In - Sign Up"
       },
       {
         name: "description",
@@ -58,7 +58,7 @@ const routes = [
     component: RestaurantLogInSignUp,
     meta: [
       {
-        title: "Sign Up or Log In"
+        title: "Foodiecloud | Log In - Sign Up"
       },
       {
         name: "description",
@@ -96,6 +96,27 @@ const routes = [
     ]
   },
   {
+    path: "/restaurant",
+    component: RestaurantPublic,
+    meta: [
+      {
+        title: "Foodiecloud"
+      },
+      {
+        name: "description",
+        content: "Local restaurant's public page on Foodiecloud."
+      },
+      {
+        name: "keywords",
+        content: "foodiecloud, food delivery, your profile, local restaurant, fast delivery"
+      },
+      {
+        name: "author",
+        content: "Siobhan Bonardi"
+      }
+    ]
+  },
+  {
     path: "/discover",
     component: DiscoverPage,
     meta: [
@@ -109,27 +130,6 @@ const routes = [
       {
         name: "keywords",
         content: "foodiecloud, food to go, food delivery service, local restaurants, fast delivery, take out, take away, food now, discover restaurants, asian food, italian food, mexican food, american food"
-      },
-      {
-        name: "author",
-        content: "Siobhan Bonardi"
-      }
-    ]
-  },
-  {
-    path: "/cloudpunchpizzeria",
-    component: CloudpunchPizzeria,
-    meta: [
-      {
-        title: "Cloudpunch Pizzeria"
-      },
-      {
-        name: "description",
-        content: "Cloudpunch Pizzeria makes fresh, authentic Neapolitan pizza in Edmonton, Alberta."
-      },
-      {
-        name: "keywords",
-        content: "pizza, pizzeria, cloudpunch pizzeria, italian food, italian restaurant, local restaurant, fast delivery"
       },
       {
         name: "author",
