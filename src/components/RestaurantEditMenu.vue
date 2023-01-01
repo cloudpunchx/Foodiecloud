@@ -1,3 +1,5 @@
+<!-- Edit menu is WORKING!! -->
+
 <template>
     <div>
         <v-form>
@@ -70,13 +72,13 @@ import cookies from 'vue-cookies';
         name: "RestaurantEditMenu",
         data() {
             return {
+                token: "",
+                menuId: null,
                 message: "",
                 name: "",
                 description: "",
-                price: "",
+                price: null,
                 imageUrl: "",
-                menuId: null,
-                token: ""
             }
         },
         methods: {
@@ -88,13 +90,8 @@ import cookies from 'vue-cookies';
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                         token: this.token,
                     },
-                    params: {
-                        // using variable we took from the cookie and using it as a param
-
-                        // LEFT OFF HERE
-                        menuId: this.menuId,
-                    },
                     data: {
+                        menuId: this.menuId,
                         name: this.name,
                         description: this.description,
                         price: this.price,
@@ -102,6 +99,7 @@ import cookies from 'vue-cookies';
                     }
                 }).then((response)=>{
                     this.menuId = response.data.menuId;
+                    // it would be nice to have this refresh to see updated menu
                     this.message = "Successfully updated menu!";
                     this.clearTextBox();
                 }).catch((error)=>{
@@ -121,6 +119,9 @@ import cookies from 'vue-cookies';
                 this.imageUrl = "";
                 this.menuId = "";
             }, 
+        },
+        created () {
+            this.getToken();
         },
     }
 </script>
