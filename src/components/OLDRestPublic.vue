@@ -7,11 +7,16 @@
     <div>
         <RestaurantHeader/>
 
-        <div class="restaurant">
+        <div>
+            <!-- should this be props only here so we can get restaurant from discover -->
             <v-card
             outlined
             tile
             class="d-flex flex-column justify-center mb-6"
+            v-for="restaurant in restaurant"
+            :key="restaurant.restaurantId"
+            cols="3"
+            sm="3"
             >
             <h2>{{ restaurant.name }}!</h2>
             <img :src="restaurant.bannerUrl">
@@ -25,8 +30,7 @@
             </v-card>
         </div>
 
-        <!-- need to do something with menu, probably only import it here and send data to menu vue template? -->
-        <!-- <RestaurantMenu/> -->
+        <RestaurantMenu/>
 
         <PageFooter/>
     </div>
@@ -34,24 +38,25 @@
 
 <script>
 import axios from "axios";
-// import cookies from 'vue-cookies';
+import cookies from 'vue-cookies';
 
 import RestaurantHeader from '@/components/RestaurantHeader.vue';
-// import RestaurantMenu from '@/components/RestaurantMenu.vue';
+import RestaurantMenu from '@/components/RestaurantMenu.vue';
 import PageFooter from '@/components/PageFooter.vue';
 
     export default {
-        name: "RestaurantPublic",
+        name: "OLDRestPublic",
         components: {
             RestaurantHeader,
-            // RestaurantMenu,
+            RestaurantMenu,
             PageFooter
         },
         data() {
             return {
-                // use this params line in my params of api call
+                restaurantId: null,
                 restaurant: [],
                 valid: false,
+                token: "",
                 name: "",
                 address: "",
                 bio: "",
@@ -68,7 +73,8 @@ import PageFooter from '@/components/PageFooter.vue';
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                     },
                     params: {
-                        restaurantId: this.$route.params.id
+                        // using variable we took from the cookie and using it as a param
+                        restaurantId: this.restaurantId,
                     }
                 }).then((response)=>{
                     this.restaurant = response.data;
@@ -77,14 +83,16 @@ import PageFooter from '@/components/PageFooter.vue';
                     alert(error);
                 })
             },
+            getRestaurantId(){
+                // grabbing restaurantId from cookie, putting it into variable
+                this.restaurantId = cookies.get(`restaurantId`);
+                this.token = cookies.get(`sessionToken`);
+            },
         },
-        // computed: {
-        //     restaurant() {
-        //         return store.restaurants.find(
-        //             restaurant => restaurant.id === this.restaurantId
-        //         )
-        //     }
-        // },
+        created () {
+            this.getRestaurantId();
+            this.getProfile();
+        },
     }
 </script>
 

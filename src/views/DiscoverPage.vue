@@ -16,7 +16,6 @@
             outlined>
             My Account
             </v-btn></router-link>
-
         </div>
 
 
@@ -32,24 +31,28 @@
         sm="3"
         >
             <p class="name">{{restaurants.name}}</p>
+            <!-- need to add profile and banner urls to restaurants so we can test and design layout -->
+            <img :src="restaurants.profileUrl">
             <img :src="restaurants.bannerUrl">
             <p>{{restaurants.bio}}</p>
             <p class="address">
                 {{restaurants.address}}
                 {{restaurants.city}}
             </p>
-            <!-- need to add url to restaurant page -->
-            <!-- need to add @click -->
+
+            <!-- at click we need to send user to /restaurant and send cookies or something so we get the 'selected' restaurant -->
+            <!-- cookie set restaurantSelected, restaurants.restaurantId ?? -->
+            <!-- then on /restaurant page, cookie get restaurantSelected and then display data -->
             <v-btn
             elevation="2"
             outlined
-            @click="$router.push('{{ restaurants.profileUrl }}')"
+            @click="$router.push('/restaurant/:id')"
             >
-                Order
+                Order Here
             </v-btn>
+            
         </v-card>
 
-        <!-- need to add button to each restaurant div that leads to their page -->
         <v-carousel
         hide-delimiters
         hide-delimiter-background
@@ -85,8 +88,8 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
         },
         data() {
             return {
-                // Empty Array to hold the response.data from API call
                 restaurants: [],
+                selectedRestaurant: "",
                 photoCarousel: [
                     {
                         src: "https://img.freepik.com/free-photo/serving-homemade-pappardelle-pasta-with-mushrooms-parmesan-cheese_53876-105902.jpg?w=1060&t=st=1671866019~exp=1671866619~hmac=366f4c49dd540d7d3d36190e08910a0466696dc9dee362b2cee25bf9819794ff"
@@ -123,7 +126,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
                     error = "Something went wrong, try again."
                     alert(error);
                 })
-            }
+            },
         },
         mounted () {
             // I want the restaurant information to display when the page loads so user can see selection of restaurants.
@@ -164,7 +167,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
 .v-btn{
     color: white;
     background-color: black;
-    width: 20%;
+    width: 50%;
     left: 50%;
     transform: translateX(-50%);
 }

@@ -1,6 +1,4 @@
 <!-- fix button layouts -->
-<!-- PATCH is only working on the first time you do it, why? -->
-
 <template>
     <div>
         <div>
@@ -79,7 +77,6 @@ import cookies from 'vue-cookies';
         name: "ClientEdit",
         data() {
             return {
-                // clientId: null,
                 client: [],
                 valid: false,
                 token: "",
@@ -102,9 +99,6 @@ import cookies from 'vue-cookies';
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                         token: this.token,
                     },
-                    // params: {
-                    //     clientId: this.clientId
-                    // },
                     data: {
                         username: this.username,
                         firstName: this.firstName,
@@ -130,14 +124,12 @@ import cookies from 'vue-cookies';
                 this.password = "";
                 this.pictureUrl = "";
             },
-            getClientId(){
-                // grabbing clientId from cookie, putting it into variable
-                // this.clientId = cookies.get(`clientId`);
+            getToken(){
                 this.token = cookies.get(`sessionToken`);
             },
         },
         created () {
-            this.getClientId();
+            this.getToken();
         },
     }
 </script>

@@ -96,7 +96,8 @@ const routes = [
     ]
   },
   {
-    path: "/restaurant",
+    // testing dynamic routing
+    path: "/restaurant/:id",
     component: RestaurantPublic,
     meta: [
       {
