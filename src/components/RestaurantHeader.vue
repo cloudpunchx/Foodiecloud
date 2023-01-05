@@ -2,7 +2,7 @@
     <div>
 
         <!-- change this link to the restaurant public page -->
-        <router-link to="/restaurant">
+        <router-link to="/discover">
             <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
         </router-link>
 

@@ -18,7 +18,6 @@
             </v-btn></router-link>
         </div>
 
-
         <img class="phrase" src="../assets/whateveryourmood.png" alt="We've got what you want">
 
         <v-card
@@ -39,18 +38,16 @@
                 {{restaurants.address}}
                 {{restaurants.city}}
             </p>
-
-            <!-- at click we need to send user to /restaurant and send cookies or something so we get the 'selected' restaurant -->
-            <!-- cookie set restaurantSelected, restaurants.restaurantId ?? -->
-            <!-- then on /restaurant page, cookie get restaurantSelected and then display data -->
-            <v-btn
+            <router-link
+            :to="{
+                    name: 'RestaurantPublic',
+                    params: {restaurantId: restaurants.restaurantId}
+                }"
+            ><v-btn
             elevation="2"
-            outlined
-            @click="$router.push('/restaurant/:id')"
-            >
-                Order Here
-            </v-btn>
-            
+            outlined>
+            Order Here
+            </v-btn></router-link>
         </v-card>
 
         <v-carousel
@@ -129,7 +126,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
             },
         },
         mounted () {
-            // I want the restaurant information to display when the page loads so user can see selection of restaurants.
+            // run GET on page automatically
             this.restaurantDiscover();
         },
     }

@@ -6,12 +6,14 @@
 <template>
     <div>
         <RestaurantHeader/>
-
+        
         <div class="restaurant">
             <v-card
             outlined
             tile
             class="d-flex flex-column justify-center mb-6"
+            v-for="restaurant in restaurant"
+            :key="restaurant.restaurantId"
             >
             <h2>{{ restaurant.name }}!</h2>
             <img :src="restaurant.bannerUrl">
@@ -49,7 +51,7 @@ import PageFooter from '@/components/PageFooter.vue';
         },
         data() {
             return {
-                // use this params line in my params of api call
+                restaurantId: this.$route.params.restaurantId,
                 restaurant: [],
                 valid: false,
                 name: "",
@@ -68,7 +70,7 @@ import PageFooter from '@/components/PageFooter.vue';
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                     },
                     params: {
-                        restaurantId: this.$route.params.id
+                        restaurantId: this.$route.params.restaurantId
                     }
                 }).then((response)=>{
                     this.restaurant = response.data;
@@ -78,13 +80,9 @@ import PageFooter from '@/components/PageFooter.vue';
                 })
             },
         },
-        // computed: {
-        //     restaurant() {
-        //         return store.restaurants.find(
-        //             restaurant => restaurant.id === this.restaurantId
-        //         )
-        //     }
-        // },
+        mounted () {
+            this.getProfile();
+        },
     }
 </script>
 
