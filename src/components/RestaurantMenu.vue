@@ -16,25 +16,34 @@
             <p>{{item.description}}</p>
             <p>{{item.price}}</p>
             <p>{{item.menuId}}</p>
+            <v-btn
+            elevation="2"
+            outlined
+            @click="addToCart"
+            >
+            Add to Cart
+            </v-btn>
         </v-card>
+
+        <shoppingCart />
     </div>
 </template>
 
 <script>
 import axios from "axios";
 
+import shoppingCart from '@/components/shoppingCart.vue';
+
     export default {
         name: "RestaurantMenu",
+        components: {
+            shoppingCart
+        },
         data() {
             return {
-                // restaurantId: null,
                 menuId: null,
                 menu: [],
-                valid: false,
-                name: "",
-                imageUrl: "",
-                description: "",
-                price: "",
+                selectedItem: null,
             }
         },
         methods: {
@@ -56,6 +65,10 @@ import axios from "axios";
                     alert(error);
                 })
             },
+            addToCart() {
+                // I think issue is it isn't grabbing menu ID 
+                this.$root.$emit('shoppingCart', this.selectedItem);
+            }
         },
         created () {
             this.getMenu();
@@ -66,5 +79,12 @@ import axios from "axios";
 <style scoped>
 img{
     width: 10vw;
+}
+.v-btn{
+    color: white;
+    background-color: black;
+    width: 20%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>
