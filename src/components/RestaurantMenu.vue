@@ -22,17 +22,15 @@
 
 <script>
 import axios from "axios";
-import cookies from 'vue-cookies';
 
     export default {
         name: "RestaurantMenu",
         data() {
             return {
-                restaurantId: null,
+                // restaurantId: null,
                 menuId: null,
                 menu: [],
                 valid: false,
-                token: "",
                 name: "",
                 imageUrl: "",
                 description: "",
@@ -48,8 +46,8 @@ import cookies from 'vue-cookies';
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                     },
                     params: {
-                        // using variable we took from the cookie and using it as a param
-                        restaurantId: this.restaurantId,
+                        restaurantId: this.$route.params.restaurantId,
+                        menuId: this.menuId,
                     }
                 }).then((response)=>{
                     this.menu = response.data;
@@ -58,14 +56,8 @@ import cookies from 'vue-cookies';
                     alert(error);
                 })
             },
-            getRestaurantId(){
-                // grabbing restaurantId from cookie, putting it into variable
-                this.restaurantId = cookies.get(`restaurantId`);
-                this.token = cookies.get(`sessionToken`);
-            },
         },
         created () {
-            this.getRestaurantId();
             this.getMenu();
         },
     }

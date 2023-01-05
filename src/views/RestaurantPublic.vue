@@ -6,7 +6,7 @@
 <template>
     <div>
         <RestaurantHeader/>
-        
+
         <div class="restaurant">
             <v-card
             outlined
@@ -28,7 +28,7 @@
         </div>
 
         <!-- need to do something with menu, probably only import it here and send data to menu vue template? -->
-        <!-- <RestaurantMenu/> -->
+        <RestaurantMenu/>
 
         <PageFooter/>
     </div>
@@ -36,29 +36,22 @@
 
 <script>
 import axios from "axios";
-// import cookies from 'vue-cookies';
 
 import RestaurantHeader from '@/components/RestaurantHeader.vue';
-// import RestaurantMenu from '@/components/RestaurantMenu.vue';
+import RestaurantMenu from '@/components/RestaurantMenu.vue';
 import PageFooter from '@/components/PageFooter.vue';
 
     export default {
         name: "RestaurantPublic",
         components: {
             RestaurantHeader,
-            // RestaurantMenu,
+            RestaurantMenu,
             PageFooter
         },
         data() {
             return {
                 restaurantId: this.$route.params.restaurantId,
                 restaurant: [],
-                valid: false,
-                name: "",
-                address: "",
-                bio: "",
-                city: "",
-                phoneNum: "",
             }
         },
         methods: {
