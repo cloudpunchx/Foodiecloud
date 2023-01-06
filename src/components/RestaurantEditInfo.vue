@@ -1,4 +1,3 @@
-<!-- Note, for bannerurl, put an upload img button on page? -->
 <!-- work on errors better -->
 <!-- need to format and design -->
 
@@ -39,7 +38,6 @@
                             <v-text-field
                             v-model="name"
                             label="Restaurant Name"
-                            required
                             ></v-text-field>
                         </v-col>
                         <v-col
@@ -49,7 +47,15 @@
                             <v-text-field
                             v-model="address"
                             label="Address"
-                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="bannerUrl"
+                            label="Banner Image Url"
                             ></v-text-field>
                         </v-col>
                         <v-col
@@ -59,7 +65,6 @@
                             <v-text-field
                             v-model="bio"
                             label="Bio"
-                            required
                             ></v-text-field>
                         </v-col>
                         <v-col
@@ -69,7 +74,6 @@
                             <v-text-field
                             v-model="city"
                             label="City"
-                            required
                             ></v-text-field>
                         </v-col>
                         <v-col
@@ -79,7 +83,15 @@
                             <v-text-field
                             v-model="phoneNum"
                             label="Phone Number"
-                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="profileUrl"
+                            label="Profile Image Url"
                             ></v-text-field>
                         </v-col>
                     </v-row>
@@ -109,9 +121,11 @@ import cookies from 'vue-cookies';
                 token: "",
                 name: "",
                 address: "",
+                bannerUrl: "",
                 bio: "",
                 city: "",
                 phoneNum: "",
+                profileUrl: "",
                 editAlert: "",
             }
         },
@@ -145,9 +159,11 @@ import cookies from 'vue-cookies';
                     data: {
                         name: this.name,
                         address: this.address,
+                        bannerUrl: this.bannerUrl,
                         bio: this.bio,
                         city: this.city,
                         phoneNum: this.phoneNum,
+                        profileUrl: this.profileUrl,
                     },
                     params: {
                         // using variable we took from the cookie and using it as a param so we edit this profile
@@ -216,5 +232,8 @@ import cookies from 'vue-cookies';
 }
 h2{
     margin-bottom: 10px;
+}
+img{
+    width: 20vw;
 }
 </style>

@@ -1,3 +1,5 @@
+<!-- when updating to new v card , add v-avatar vuetify - Avatars -->
+
 <!-- fix button layouts -->
 <template>
     <div>

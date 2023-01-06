@@ -1,31 +1,49 @@
 <!-- fix layout! -->
+<!-- need delete button for menu -->
 
 <template>
     <div>
-        <v-card
+        <v-row>       
+            <v-card
+            class="mx-auto"
+            min-width="350"
+            max-width="350"
             outlined
-            tile
-            class="d-flex flex-column justify-center mb-6"
             v-for="item in menu"
             :key="item.menuId"
-            cols="3"
-            sm="3"
             >
-            <h2>{{item.name}}!</h2>
-            <img :src="item.imageUrl">
-            <p>{{item.description}}</p>
-            <p>{{item.price}}</p>
-            <p>{{item.menuId}}</p>
-            <v-btn
-            elevation="2"
-            outlined
-            @click="addToCart"
-            >
-            Add to Cart
-            </v-btn>
-        </v-card>
+                <v-responsive>
+                    <v-list-item three-line>
+                    <v-list-item-content>
+                        <div class="text-overline mb-4">
+                        {{item.menuId}}
+                        </div>
+                        <v-list-item-title class="text-h5 mb-1">
+                        {{item.name}}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>{{item.description}}</v-list-item-subtitle>
+                    </v-list-item-content>
 
-        <shoppingCart />
+                    <v-list-item-avatar
+                        tile
+                        size="80"
+                    ><img :src="item.imageUrl"></v-list-item-avatar>
+                    </v-list-item>
+
+                    <v-card-actions>
+                    <v-btn
+                        outlined
+                        text
+                        @click="addToCart"
+                    >
+                        Add to Cart
+                    </v-btn>        
+                    </v-card-actions>
+                </v-responsive>
+            </v-card>
+        </v-row> 
+
+        <shoppingCart/>
     </div>
 </template>
 
@@ -77,14 +95,5 @@ import shoppingCart from '@/components/shoppingCart.vue';
 </script>
 
 <style scoped>
-img{
-    width: 10vw;
-}
-.v-btn{
-    color: white;
-    background-color: black;
-    width: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-}
+
 </style>

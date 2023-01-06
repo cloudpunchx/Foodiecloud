@@ -1,6 +1,8 @@
+<!-- 'STEPPER' IN VUETIFY -->
+
 <template>
     <div v-if="shoppingCartItems.length">
-        <div v-for="(items,index) in shoppingCartItems"
+        <!-- <div v-for="(items,index) in shoppingCartItems"
         :key="index"
         >
         <p>{{ items }}</p>  
@@ -11,7 +13,50 @@
             @click="submitOrder"
             >
             Submit Order
-            </v-btn>
+            </v-btn> -->
+
+
+            <!-- need to make cart, do we want items shown in cart, and create array separately -->
+            <!-- with the array of menu Ids , so it looks good -->
+
+            <!-- send all info over -->
+            <v-col>       
+            <v-card
+            class="mx-auto"
+            outlined
+            v-for="(items,index) in shoppingCartItems"
+            :key="index"
+            >
+                <v-responsive>
+                    <v-list-item three-line>
+                    <v-list-item-content>
+                        <div class="text-overline mb-4">
+                        {{items.menuId}}
+                        </div>
+                        <v-list-item-title class="text-h5 mb-1">
+                        {{items.name}}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>{{items.description}}</v-list-item-subtitle>
+                    </v-list-item-content>
+
+                    <v-list-item-avatar
+                        tile
+                        size="80"
+                    ><img :src="item.imageUrl"></v-list-item-avatar>
+                    </v-list-item>
+
+                    <v-card-actions>
+                    <v-btn
+                        outlined
+                        text
+                        @click="submitOrder"
+                    >
+                        Submit Order
+                    </v-btn>        
+                    </v-card-actions>
+                </v-responsive>
+            </v-card>
+        </v-col> 
     </div>
 </template>
 

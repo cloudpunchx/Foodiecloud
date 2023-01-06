@@ -1,31 +1,59 @@
-<!-- Need to format page and edit the info box -->
 <!-- could make 1 GET restaurant component and use it here and on profile edit? come back to at the end -->
-
 <!-- new idea, scrap this get request and use dynamic routing from discover page? -->
 
 <template>
     <div>
         <RestaurantHeader/>
 
-        <div class="restaurant">
-            <v-card
-            outlined
-            tile
-            class="d-flex flex-column justify-center mb-6"
-            v-for="restaurant in restaurant"
-            :key="restaurant.restaurantId"
+        <v-card
+        outlined
+        class="d-flex flex-column justify-center mb-6"
+        v-for="restaurant in restaurant"
+        :key="restaurant.restaurantId"
+        >
+            <v-img
+            height="250"
+            :src="restaurant.bannerUrl"
+            ></v-img>
+
+            <v-avatar
+            size="175"
+            class="profilePicture"
             >
-            <h2>{{ restaurant.name }}!</h2>
-            <img :src="restaurant.bannerUrl">
-            <p>{{restaurant.bio}}</p>
-            <p>
-                {{restaurant.address}},
-                {{restaurant.city}}
-            </p>
-            <p>{{restaurant.email}}</p>
-            <p>{{restaurant.phoneNum}}</p>
-            </v-card>
-        </div>
+            <v-img
+            :src="restaurant.profileUrl"
+            ></v-img>
+            </v-avatar>
+
+            <v-card-title>{{ restaurant.name }}</v-card-title>
+
+            <v-card-text>
+                <v-row
+                align="center"
+                class="mx-0"
+                >
+                    <v-rating
+                    :value="4.5"
+                    color="amber"
+                    dense
+                    half-increments
+                    readonly
+                    size="14"
+                    ></v-rating>
+
+                    <div class="grey--text ms-4">
+                    4.5 (413)
+                    </div>
+                </v-row>
+
+                <div class="my-4 text-subtitle-1">
+                    $ • Italian, Cafe
+                </div>
+
+                <div>{{restaurant.bio}}</div>
+        </v-card-text>
+
+        </v-card>
 
         <!-- need to do something with menu, probably only import it here and send data to menu vue template? -->
         <RestaurantMenu/>
@@ -81,16 +109,12 @@ import PageFooter from '@/components/PageFooter.vue';
 
 <style scoped>
 .v-card{
-    color: black;
-    background-color: white;
-    text-align: center;
-    padding: 15px;
-    margin: 20px;
-    position: relative;
+    width: 70vw;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
-    border: 3px solid black;
+}
+.profilePicture{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: 15px;
 }
 </style>

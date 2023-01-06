@@ -3,12 +3,16 @@
 <!-- not sure if profile url works, check after -->
 
 <!-- maybe make my account button a component later? -->
+<!-- static part /menu /rest then dynamic part is parameter that represents id of restaurant -->
+<!-- when page loads, take parameter and use it in axios call. -->
+<!-- on mounted, axios call will look at route parameter and send it over as restaurantID -->
+<!-- receives back only items pertaining to the ID -->
 
 <template>
     <div>
         <ClientHeader/>
 
-        <div>
+        <!-- <div>
             <router-link to="/user/settings/account"
             ><v-btn
             class="profileButton"
@@ -16,39 +20,95 @@
             outlined>
             My Account
             </v-btn></router-link>
-        </div>
+        </div> -->
 
         <img class="phrase" src="../assets/whateveryourmood.png" alt="We've got what you want">
 
-        <v-card
-        outlined
-        tile
-        class="d-flex flex-column justify-center mb-6"
-        v-for="restaurants of restaurants"
-        :key="restaurants.restaurantId"
-        cols="3"
-        sm="3"
-        >
-            <p class="name">{{restaurants.name}}</p>
-            <!-- need to add profile and banner urls to restaurants so we can test and design layout -->
-            <img :src="restaurants.profileUrl">
-            <img :src="restaurants.bannerUrl">
-            <p>{{restaurants.bio}}</p>
-            <p class="address">
-                {{restaurants.address}}
-                {{restaurants.city}}
-            </p>
-            <router-link
-            :to="{
-                    name: 'RestaurantPublic',
-                    params: {restaurantId: restaurants.restaurantId}
-                }"
-            ><v-btn
-            elevation="2"
-            outlined>
-            Order Here
-            </v-btn></router-link>
-        </v-card>
+        <!-- ADD V-RESPONSIVE TO THIS CARD? UNDER ASPECT RATIO VUETIFY -->
+        <v-row>
+            <v-card
+            :loading="loading"
+            class="mx-auto my-12"
+            max-width="374"
+            v-for="restaurants of restaurants"
+            :key="restaurants.restaurantId"
+            >
+                <template slot="progress">
+                <v-progress-linear
+                    color="deep-purple"
+                    height="10"
+                    indeterminate
+                ></v-progress-linear>
+                </template>
+
+                <v-img
+                height="250"
+                :src="restaurants.bannerUrl"
+                ></v-img>
+
+                <v-card-title>{{restaurants.name}}</v-card-title>
+
+                <v-card-text>
+                <v-row
+                    align="center"
+                    class="mx-0"
+                >
+                    <v-rating
+                    :value="4.5"
+                    color="amber"
+                    dense
+                    half-increments
+                    readonly
+                    size="14"
+                    ></v-rating>
+
+                    <div class="grey--text ms-4">
+                    4.5 (413)
+                    </div>
+                </v-row>
+
+                <div class="my-4 text-subtitle-1">
+                    $ • Italian, Cafe
+                </div>
+
+                <div>{{restaurants.bio}}</div>
+                </v-card-text>
+
+                <v-divider class="mx-4"></v-divider>
+
+                <v-card-title>Tonight's availability</v-card-title>
+
+                <v-card-text>
+                <v-chip-group
+                    v-model="selection"
+                    active-class="deep-purple accent-4 white--text"
+                    column
+                >
+                    <v-chip>5:30PM</v-chip>
+
+                    <v-chip>7:30PM</v-chip>
+
+                    <v-chip>8:00PM</v-chip>
+
+                    <v-chip>9:00PM</v-chip>
+                </v-chip-group>
+                </v-card-text>
+
+                <v-card-actions>
+                    <router-link
+                    :to="{
+                        name: 'RestaurantPublic',
+                        params: {restaurantId: restaurants.restaurantId}
+                    }"
+                    ><v-btn
+                    elevation="2"
+                    outlined>
+                    Order Here
+                    </v-btn>
+                    </router-link>
+                </v-card-actions>
+            </v-card>
+        </v-row>
 
         <v-carousel
         hide-delimiters
@@ -68,6 +128,7 @@
         </v-carousel>
 
         <InsidePageFooter/>
+        
     </div>
 </template>
 
@@ -141,33 +202,17 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
     transform: translateX(-50%);
 }
 .v-card{
-    color: black;
-    background-color: white;
-    text-align: center;
-    padding: 15px;
-    margin: 20px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30%;
-    border: 3px solid black;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     z-index: 1;
 }
-.name{
-    font-size: 14pt;
-    font-weight: bold;
-}
-.address{
-    font-size: 10pt;
-}
-.v-btn{
+/* EEEEEEH probs will delete these styles and redo button */
+/* .v-btn{
     color: white;
     background-color: black;
     width: 50%;
     left: 50%;
     transform: translateX(-50%);
-}
+} */
 .profileButton{
     width: 12%;
     position: absolute;
