@@ -33,7 +33,7 @@ const routes = [
     ]
   },
   {
-    path: "/user/:userId",
+    path: "/user/:clientId",
     name: "ClientProfile",
     component: ClientProfile,
     meta: [

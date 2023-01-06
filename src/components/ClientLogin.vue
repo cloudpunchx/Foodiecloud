@@ -1,5 +1,7 @@
 <!-- leaving off here with trying to get dynamic route to work, need to assign clientid param -->
 
+<!-- NOT SURE IF DYNAMIC ROUTE SET IN API BELOW WORKS, DOING TOOLBAR DISCOVER FIRST -->
+
 <template>
     <div>
         <v-card
@@ -61,6 +63,7 @@ import router from '@/router';
                 ],
                 password: "",
                 loginError: "",
+                clientId: null,
             }
         },
         methods: {
@@ -76,9 +79,12 @@ import router from '@/router';
                         password: this.password,
                     },
                 }).then((response)=>{
-                    router.push("/discover");
+                    // NOT SURE IF THIS WORKS, NEED LOGOUT BUTTON WORKING THEN CAN TEST
+                    this.clientId = response.data.clientId;
+                    this.$route.params.clientId = this.clientId;
                     cookies.set(`sessionToken`, response.data.token);
                     cookies.set(`clientId`, response.data.clientId);
+                    router.push("/discover");
                 }).catch((error)=>{
                     this.loginError = error;
                     this.loginError = "Incorrect Email or Password"

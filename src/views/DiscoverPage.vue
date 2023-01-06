@@ -19,7 +19,7 @@
             </v-btn></router-link>
         </div> -->
 
-        <img class="phrase" src="../assets/whateveryourmood.png" alt="We've got what you want">
+        <img class="phrase" src="../assets/whateveryourmood.png" alt="Whatever You're In The Mood For text Img">
 
         <v-row>
             <v-card
@@ -80,7 +80,7 @@
             </v-card>
         </v-row>
 
-        <v-carousel
+        <!-- <v-carousel
         hide-delimiters
         hide-delimiter-background
         show-arrows-on-hover
@@ -95,7 +95,7 @@
             transition="fade-transition"
             >
             </v-carousel-item>
-        </v-carousel>
+        </v-carousel> -->
 
         <InsidePageFooter/>
         
@@ -157,7 +157,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
             },
         },
         mounted () {
-            // run GET on page automatically
             this.restaurantDiscover();
         },
     }
@@ -167,7 +166,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
 .phrase{
     width: 33vw;
     position: absolute;
-    top: 8%;
+    top: 10%;
     left: 51%;
     transform: translateX(-50%);
 }

@@ -156,7 +156,8 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                         token: this.token,
                     },
                     params: {
-                        clientId: this.clientId,
+                        // clientId: this.clientId,
+                        clientId: this.$route.params.clientId
                     }
                 }).then((response)=>{
                     this.client = response.data;

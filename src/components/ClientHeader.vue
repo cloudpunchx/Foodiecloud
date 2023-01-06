@@ -1,20 +1,29 @@
+<!-- STYLE LOGOUT BUTTON AND ALIGN -->
+
 <template>
     <div>
-
-        <!-- LEFT OFF WORKING WITH DRAWER AND TOOLBAR -->
         <v-app-bar width="100%" flat app>
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title>
                 <p>hi</p>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn>
+            <!-- <v-btn>
                 <span>Sign Out</span>
-            </v-btn>
+            </v-btn> -->
+            <LogOutButton/>
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawer" app class="white">
-            <p>test</p>
+            <div>
+                <router-link to="/user/:clientId"
+                ><v-btn
+                class="profileButton"
+                elevation="2"
+                outlined>
+                My Account
+                </v-btn></router-link>
+            </div>
         </v-navigation-drawer>
 
                 <!-- Logo is also a link to discover page. -->
@@ -22,17 +31,16 @@
             <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
         </router-link>
 
-        <!-- <LogOutButton/> -->
     </div>
 </template>
 
 <script>
-// import LogOutButton from '@/components/LogOutButton.vue';
+import LogOutButton from '@/components/LogOutButton.vue';
 
     export default {
         name: "ClientHeader",
         components: {
-            // LogOutButton
+            LogOutButton
         },
         data() {
             return {

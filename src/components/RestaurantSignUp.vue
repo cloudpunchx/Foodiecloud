@@ -4,9 +4,13 @@
 
 <!-- how to set phone number rule so dash is mandatory? -->
 
+<!-- ADD TOOLBAR TO LOGIN SIGNUP AND HAVE THE BUTTON TO SWAP REST/CLIENT THERE -->
+
 <template>
     <div>
-        <div class="formContainer">
+        <v-card
+        class="d-flex flex-column justify-center mb-6"
+        >
             <v-form>
                 <v-container>
                     <p>Restaurant Sign Up</p>
@@ -16,47 +20,8 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="name"
-                            label="Restaurant Name"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
-                            v-model="address"
-                            label="Address"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
-                            v-model="bio"
-                            label="Bio"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
-                            v-model="city"
-                            label="City"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
                             v-model="email"
+                            :rules="emailRules"
                             label="E-mail"
                             required
                             ></v-text-field>
@@ -66,9 +31,9 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="password"
-                            type="password"
-                            label="Password"
+                            v-model="username"
+                            :rules="nameRules"
+                            label="Username"
                             required
                             ></v-text-field>
                         </v-col>
@@ -77,8 +42,31 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="phoneNum"
-                            label="Phone Number"
+                            v-model="firstName"
+                            :rules="nameRules"
+                            label="First Name"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="lastName"
+                            :rules="nameRules"
+                            label="Last Name"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                        <!-- :rules="passwordRules" do we need? -->
+                            <v-text-field
+                            v-model="password"
+                            label="Password"
                             required
                             ></v-text-field>
                         </v-col>
@@ -91,7 +79,9 @@
                 >Submit</v-btn>
                 <p class="error" v-if="signUpError">{{ signUpError }}</p>
             </v-form>
-        </div>
+        </v-card>
+
+
     </div>
 </template>
 
@@ -137,17 +127,12 @@ import router from '@/router';
                         phoneNum: this.phoneNum,
                     },
                 }).then((response)=>{
-                    // send to Discover page after successful login
                     router.push("/restaurant/settings/account");
-                    // set Session Token cookie after successful login
                     cookies.set(`sessionToken`, response.data.token);
                     cookies.set(`restaurantId`, response.data.restaurantId);
                 }).catch((error)=>{
-                    // let error be this.loginError
                     this.signUpError = error;
-                    // then display my text if there is an error
                     this.signUpError = "Phone Number must contain dashes XXX-XXX-XXXX"
-                    // clear text boxes after failure so user can re-enter information
                     this.name = "";
                     this.address = "";
                     this.bio = "";
@@ -162,15 +147,13 @@ import router from '@/router';
 </script>
 
 <style scoped>
-.v-form{
-    color: white;
+.v-card{
     text-align: center;
     background-color: whitesmoke;
     padding: 25px;
-    margin: 25px;
     position: absolute;
     width: 40%;
-    top: 25%;
+    top: 30%;
     left: 50%;
     transform: translateX(-50%);
     border: 3px solid black;
@@ -184,8 +167,8 @@ import router from '@/router';
 }
 p{
     color: black;
-    font-weight: bold;
     font-size: 16pt;
+    font-weight: bold;
 }
 .error{
     color: white;

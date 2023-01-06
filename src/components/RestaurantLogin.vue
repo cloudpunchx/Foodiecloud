@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="formContainer">
+        <!-- <div class="formContainer">
             <v-form>
                 <v-container>
                     <p>Restaurant Log In</p>
@@ -36,7 +36,48 @@
                 >Submit</v-btn>
                 <p class="error" v-if="loginError">{{ loginError }}</p>
             </v-form>
-        </div>
+        </div> -->
+
+        <v-card
+        class="d-flex flex-column justify-center mb-6"
+        >
+            <v-form>
+                <v-container>
+                    <p>Restaurant Log In</p>
+                    <v-row>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="email"
+                            :rules="emailRules"
+                            label="E-mail"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="password"
+                            type="password"
+                            label="Password"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <v-btn
+                elevation="2"
+                @click="restaurantLogin"
+                outlined
+                >Submit</v-btn>
+                <p class="error" v-if="loginError">{{ loginError }}</p>
+            </v-form>
+        </v-card>
+
     </div>
 </template>
 
@@ -92,15 +133,13 @@ import router from '@/router';
 </script>
 
 <style scoped>
-.v-form{
-    color: white;
+.v-card{
     text-align: center;
     background-color: whitesmoke;
     padding: 25px;
-    margin: 25px;
     position: absolute;
     width: 40%;
-    top: 25%;
+    top: 30%;
     left: 50%;
     transform: translateX(-50%);
     border: 3px solid black;
