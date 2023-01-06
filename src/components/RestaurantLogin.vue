@@ -1,5 +1,3 @@
-<!-- need to change route after success, probably don't want discover page -->
-
 <template>
     <div>
         <div class="formContainer">

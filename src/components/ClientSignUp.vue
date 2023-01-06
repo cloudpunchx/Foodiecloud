@@ -1,10 +1,8 @@
-<!-- Come back to: -->
-<!-- 2nd password box to verify entry? -->
-<!-- :rules ? -->
-
 <template>
     <div>
-        <div class="formContainer">
+        <v-card
+        class="d-flex flex-column justify-center mb-6"
+        >
             <v-form>
                 <v-container>
                     <p>Sign Up</p>
@@ -36,7 +34,7 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="firstname"
+                            v-model="firstName"
                             :rules="nameRules"
                             label="First Name"
                             required
@@ -47,7 +45,7 @@
                         md="6"
                         >
                             <v-text-field
-                            v-model="lastname"
+                            v-model="lastName"
                             :rules="nameRules"
                             label="Last Name"
                             required
@@ -64,18 +62,6 @@
                             required
                             ></v-text-field>
                         </v-col>
-                        <!-- COME BACK TO THIS LATER, CONFIRM PASSWORD SETTING -->
-                        <!-- <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
-                            v-model="password"
-                            :rules="passwordRules"
-                            label="Re-Enter Password"
-                            required
-                            ></v-text-field>
-                        </v-col> -->
                     </v-row>
                 </v-container>
                 <v-btn
@@ -85,7 +71,8 @@
                 >Submit</v-btn>
                 <p class="error" v-if="signUpError">{{ signUpError }}</p>
             </v-form>
-        </div>
+        </v-card>
+
     </div>
 </template>
 
@@ -105,8 +92,8 @@ import router from '@/router';
                     v => /.+@.+/.test(v) || 'E-mail must be valid'
                 ],
                 username: "",
-                firstname: "",
-                lastname: "",
+                firstName: "",
+                lastName: "",
                 nameRules: [
                     v => !!v || 'Name is required',
                 ],
@@ -125,26 +112,21 @@ import router from '@/router';
                     data: {
                         email: this.email,
                         username: this.username,
-                        firstName: this.firstname,
-                        lastName: this.lastname,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
                         password: this.password,
                     },
                 }).then((response)=>{
-                    // send to Discover page after successful login
                     router.push("/discover");
-                    // set Session Token cookie after successful login
                     cookies.set(`sessionToken`, response.data.token);
                     cookies.set(`clientId`, response.data.clientId);
                 }).catch((error)=>{
-                    // let error be this.loginError
                     this.signUpError = error;
-                    // then display my text if there is an error
                     this.signUpError = "Something went wrong, try again."
-                    // clear text boxes after failure so user can re-enter information
                     this.email = "";
                     this.username = "";
-                    this.firstname = "";
-                    this.lastname = "";
+                    this.firstName = "";
+                    this.lastName = "";
                     this.password = "";
                 })
             }
@@ -153,15 +135,13 @@ import router from '@/router';
 </script>
 
 <style scoped>
-.v-form{
-    color: white;
+.v-card{
     text-align: center;
     background-color: whitesmoke;
     padding: 25px;
-    margin: 25px;
     position: absolute;
     width: 40%;
-    top: 25%;
+    top: 30%;
     left: 50%;
     transform: translateX(-50%);
     border: 3px solid black;
@@ -175,8 +155,8 @@ import router from '@/router';
 }
 p{
     color: black;
-    font-weight: bold;
     font-size: 16pt;
+    font-weight: bold;
 }
 .error{
     color: white;

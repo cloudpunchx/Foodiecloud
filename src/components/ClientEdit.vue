@@ -1,9 +1,9 @@
-<!-- when updating to new v card , add v-avatar vuetify - Avatars -->
+<!-- CAN PROBABLY DELETE THIS PAGE  -->
 
 <!-- fix button layouts -->
 <template>
     <div>
-        <div>
+        <!-- <div>
             <v-form>
                 <v-container>
                     <v-row>
@@ -66,7 +66,7 @@
                 >Submit</v-btn>
                 <p v-if="editAlert" class="editAlert">{{editAlert}}</p>
             </v-form>
-        </div>
+        </div> -->
 
     </div>
 </template>
@@ -109,7 +109,7 @@ import cookies from 'vue-cookies';
                         pictureUrl: this.pictureUrl,
                     }
                 }).then(()=>{
-                    this.editAlert = 'Profile updated successfully!'
+                    this.editAlert = 'Profile updated successfully!';
                     this.clearTextBox();
                     // this.getProfile();
                 }).catch((error)=>{
@@ -132,6 +132,11 @@ import cookies from 'vue-cookies';
         },
         created () {
             this.getToken();
+        },
+        mounted () {
+            this.$root.$on('editProfile', () =>{
+                this.editProfile()
+            });
         },
     }
 </script>

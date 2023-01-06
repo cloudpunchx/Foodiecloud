@@ -1,8 +1,5 @@
 <!-- Come back and fix error, make it better in AXIOS call -->
-<!-- not sure if bannerUrl works in template v-card, check after putting bannerurl in a restaurant -->
-<!-- not sure if profile url works, check after -->
 
-<!-- maybe make my account button a component later? -->
 <!-- static part /menu /rest then dynamic part is parameter that represents id of restaurant -->
 <!-- when page loads, take parameter and use it in axios call. -->
 <!-- on mounted, axios call will look at route parameter and send it over as restaurantID -->
@@ -24,22 +21,13 @@
 
         <img class="phrase" src="../assets/whateveryourmood.png" alt="We've got what you want">
 
-        <!-- ADD V-RESPONSIVE TO THIS CARD? UNDER ASPECT RATIO VUETIFY -->
         <v-row>
             <v-card
-            :loading="loading"
             class="mx-auto my-12"
             max-width="374"
             v-for="restaurants of restaurants"
             :key="restaurants.restaurantId"
             >
-                <template slot="progress">
-                <v-progress-linear
-                    color="deep-purple"
-                    height="10"
-                    indeterminate
-                ></v-progress-linear>
-                </template>
 
                 <v-img
                 height="250"
@@ -75,24 +63,6 @@
                 </v-card-text>
 
                 <v-divider class="mx-4"></v-divider>
-
-                <v-card-title>Tonight's availability</v-card-title>
-
-                <v-card-text>
-                <v-chip-group
-                    v-model="selection"
-                    active-class="deep-purple accent-4 white--text"
-                    column
-                >
-                    <v-chip>5:30PM</v-chip>
-
-                    <v-chip>7:30PM</v-chip>
-
-                    <v-chip>8:00PM</v-chip>
-
-                    <v-chip>9:00PM</v-chip>
-                </v-chip-group>
-                </v-card-text>
 
                 <v-card-actions>
                     <router-link

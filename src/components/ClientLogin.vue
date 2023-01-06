@@ -1,6 +1,10 @@
+<!-- leaving off here with trying to get dynamic route to work, need to assign clientid param -->
+
 <template>
     <div>
-        <div class="formContainer">
+        <v-card
+        class="d-flex flex-column justify-center mb-6"
+        >
             <v-form>
                 <v-container>
                     <p>Log In</p>
@@ -36,7 +40,7 @@
                 >Submit</v-btn>
                 <p class="error" v-if="loginError">{{ loginError }}</p>
             </v-form>
-        </div>
+        </v-card>
     </div>
 </template>
 
@@ -72,17 +76,12 @@ import router from '@/router';
                         password: this.password,
                     },
                 }).then((response)=>{
-                    // send to Discover page after successful login
                     router.push("/discover");
-                    // set Session Token cookie after successful login
                     cookies.set(`sessionToken`, response.data.token);
                     cookies.set(`clientId`, response.data.clientId);
                 }).catch((error)=>{
-                    // let error be this.loginError
                     this.loginError = error;
-                    // then display my text if there is an error
                     this.loginError = "Incorrect Email or Password"
-                    // clear text boxes after failure so user can re-enter information
                     this.email = "";
                     this.password = "";
                 })
@@ -92,15 +91,13 @@ import router from '@/router';
 </script>
 
 <style scoped>
-.v-form{
-    color: white;
+.v-card{
     text-align: center;
     background-color: whitesmoke;
     padding: 25px;
-    margin: 25px;
     position: absolute;
     width: 40%;
-    top: 25%;
+    top: 30%;
     left: 50%;
     transform: translateX(-50%);
     border: 3px solid black;

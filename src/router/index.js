@@ -33,7 +33,8 @@ const routes = [
     ]
   },
   {
-    path: "/user/settings/account",
+    path: "/user/:userId",
+    name: "ClientProfile",
     component: ClientProfile,
     meta: [
       {
@@ -96,7 +97,6 @@ const routes = [
     ]
   },
   {
-    // testing dynamic routing
     path: "/restaurant/:restaurantId",
     name: "RestaurantPublic",
     component: RestaurantPublic,
