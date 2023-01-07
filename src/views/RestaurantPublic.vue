@@ -1,9 +1,10 @@
-<!-- could make 1 GET restaurant component and use it here and on profile edit? come back to at the end -->
-<!-- new idea, scrap this get request and use dynamic routing from discover page? -->
+<!-- delete the rest header vue? -->
 
 <template>
     <div>
-        <RestaurantHeader/>
+        <!-- <RestaurantHeader/> -->
+
+        <ClientHeader/>
 
         <v-card
         outlined
@@ -65,14 +66,14 @@
 <script>
 import axios from "axios";
 
-import RestaurantHeader from '@/components/RestaurantHeader.vue';
+import ClientHeader from '@/components/ClientHeader.vue';
 import RestaurantMenu from '@/components/RestaurantMenu.vue';
 import PageFooter from '@/components/PageFooter.vue';
 
     export default {
         name: "RestaurantPublic",
         components: {
-            RestaurantHeader,
+            ClientHeader,
             RestaurantMenu,
             PageFooter
         },

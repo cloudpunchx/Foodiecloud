@@ -9,7 +9,7 @@
         >
             <v-app-bar width="100%" flat app>
                 <v-toolbar-title>
-                    <p class="title">Profile</p>
+                    <p class="title">Edit Your Account</p>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn>
@@ -132,9 +132,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
         },
         data() {
             return {
-                clientId: null,
                 client: [],
-                valid: false,
                 token: "",
                 username: "",
                 firstName: "",
@@ -142,7 +140,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                 pictureUrl: "",
                 email: "",
                 password: "",
-                createdAt: "",
                 editAlert: "",
             }
         },
@@ -156,7 +153,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                         token: this.token,
                     },
                     params: {
-                        // clientId: this.clientId,
                         clientId: this.$route.params.clientId
                     }
                 }).then((response)=>{
@@ -167,7 +163,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                 })
             },
             getClientId(){
-                this.clientId = cookies.get(`clientId`);
                 this.token = cookies.get(`sessionToken`);
             },
             editProfile(){

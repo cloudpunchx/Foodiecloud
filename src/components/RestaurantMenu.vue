@@ -34,7 +34,7 @@
                     <v-btn
                         outlined
                         text
-                        @click="addToCart"
+                        @click="addToCart(item.menuId)"
                     >
                         Add to Cart
                     </v-btn>        
@@ -42,26 +42,17 @@
                 </v-responsive>
             </v-card>
         </v-row> 
-
-        <shoppingCart/>
     </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import shoppingCart from '@/components/shoppingCart.vue';
-
     export default {
         name: "RestaurantMenu",
-        components: {
-            shoppingCart
-        },
         data() {
             return {
-                menuId: null,
                 menu: [],
-                selectedItem: null,
             }
         },
         methods: {
@@ -74,7 +65,6 @@ import shoppingCart from '@/components/shoppingCart.vue';
                     },
                     params: {
                         restaurantId: this.$route.params.restaurantId,
-                        menuId: this.menuId,
                     }
                 }).then((response)=>{
                     this.menu = response.data;
@@ -83,9 +73,9 @@ import shoppingCart from '@/components/shoppingCart.vue';
                     alert(error);
                 })
             },
-            addToCart() {
-                // I think issue is it isn't grabbing menu ID 
-                this.$root.$emit('shoppingCart', this.selectedItem);
+            addToCart(menuId) {
+                let menuItem = menuId
+                this.$root.$emit('addToCart', menuItem);
             }
         },
         created () {

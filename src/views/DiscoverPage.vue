@@ -1,5 +1,7 @@
 <!-- Come back and fix error, make it better in AXIOS call -->
 
+<!-- set discover page as home so anyone can view even logged out -->
+
 <!-- static part /menu /rest then dynamic part is parameter that represents id of restaurant -->
 <!-- when page loads, take parameter and use it in axios call. -->
 <!-- on mounted, axios call will look at route parameter and send it over as restaurantID -->

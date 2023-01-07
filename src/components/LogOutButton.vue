@@ -42,11 +42,5 @@ import router from '@/router';
 </script>
 
 <style scoped>
-.v-btn{
-    color: white;
-    background-color: black;
-    position: absolute;
-    top: 2%;
-    left: 93%;
-}
+
 </style>
