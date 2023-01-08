@@ -1,3 +1,6 @@
+// check this over before submitting, maybe change some meta? add?
+// can the title be dynamic too?
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -5,6 +8,7 @@ import ClientLogInSignUp from '@/views/ClientLogInSignUp';
 import ClientProfile from '@/views/ClientProfile';
 import RestaurantLogInSignUp from '@/views/RestaurantLogInSignUp';
 import RestaurantProfile from '@/views/RestaurantProfile';
+import ViewOrder from '@/views/ViewOrder';
 import DiscoverPage from '@/views/DiscoverPage';
 import RestaurantPublic from '@/views/RestaurantPublic';
 
@@ -59,7 +63,7 @@ const routes = [
     component: RestaurantLogInSignUp,
     meta: [
       {
-        title: "Foodiecloud | Log In - Sign Up"
+        title: "Log In - Sign Up | Foodiecloud"
       },
       {
         name: "description",
@@ -107,6 +111,28 @@ const routes = [
       {
         name: "description",
         content: "Local restaurant's public page on Foodiecloud."
+      },
+      {
+        name: "keywords",
+        content: "foodiecloud, food delivery, your profile, local restaurant, fast delivery"
+      },
+      {
+        name: "author",
+        content: "Siobhan Bonardi"
+      }
+    ]
+  },
+  {
+    path: "/orders/:orderId",
+    name: "ViewOrder",
+    component: ViewOrder,
+    meta: [
+      {
+        title: "View Orders | Foodiecloud"
+      },
+      {
+        name: "description",
+        content: "View current and previous orders made on Foodiecloud Delivery."
       },
       {
         name: "keywords",
