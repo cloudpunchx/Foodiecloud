@@ -30,13 +30,16 @@
                     </v-list-item>
                 </v-responsive>
             </v-card>
-            <v-btn
-            outlined
-            text
-            @click="submitOrder"
-            >
-            Submit Order
-            </v-btn> 
+            <router-link
+            to="/orders"
+                    ><v-btn
+                    elevation="2"
+                    outlined
+                    @click="submitOrder"
+                    >
+                    Submit Order
+                    </v-btn>
+            </router-link>
         </v-row> 
 
     </div>
@@ -85,9 +88,7 @@ import cookies from 'vue-cookies';
                         restaurantId: this.$route.params.restaurantId,
                         items: this.shoppingCart,
                     }
-                }).then((response)=>{
-                    // is this correct for 2nd param in cookie set?
-                    cookies.set(`shoppingCart`, response);
+                }).then(()=>{
                     alert("success TEST");
                 }).catch((error)=>{
                     error = "Something went wrong, please try again.";
@@ -96,10 +97,8 @@ import cookies from 'vue-cookies';
             },
             addToCart(menuId) {
                 this.shoppingCart.push(menuId)
-                // mark said push
             },
             getToken(){
-                // grabbing restaurantId from cookie, putting it into variable
                 this.token = cookies.get(`sessionToken`);
             },
         },

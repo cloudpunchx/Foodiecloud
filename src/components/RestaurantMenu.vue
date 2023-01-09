@@ -47,6 +47,7 @@
 
 <script>
 import axios from "axios";
+import cookies from 'vue-cookies';
 
     export default {
         name: "RestaurantMenu",
@@ -76,6 +77,7 @@ import axios from "axios";
             addToCart(menuId) {
                 let menuItem = menuId
                 this.$root.$emit('addToCart', menuItem);
+                cookies.set(`itemsInCart`, `true`);
             }
         },
         created () {

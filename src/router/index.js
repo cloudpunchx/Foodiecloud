@@ -123,12 +123,11 @@ const routes = [
     ]
   },
   {
-    path: "/orders/:orderId",
-    name: "ViewOrder",
+    path: "/orders",
     component: ViewOrder,
     meta: [
       {
-        title: "View Orders | Foodiecloud"
+        title: "Order History | Foodiecloud"
       },
       {
         name: "description",

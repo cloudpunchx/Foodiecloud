@@ -5,52 +5,59 @@
 
 <template>
     <div>
-        <v-app-bar width="100%" flat app>
-            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-toolbar-title>
-                <p>hi</p>
-            </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn icon>
-                <v-icon @click="cart = !cart">mdi-cart</v-icon>
-            </v-btn>
-        </v-app-bar>
+        <div>
+            <v-app-bar width="100%" flat app>
+                <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+                <v-toolbar-title>
+                    Foodiecloud
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                    <v-icon @click="cart = !cart">mdi-cart</v-icon>
+                </v-btn>
+            </v-app-bar>
 
-        <!-- come back to, when removing App it changes page layout but i want it to overlap -->
-        <v-navigation-drawer 
-        v-model="drawer" 
-        app 
-        class="white"
-        >
-            <div v-for="user in client" :key="user.clientId">
-                <router-link :to="'/user/'+user.clientId"
-                >My Account</router-link>
-            </div>
-            <div>
-                <!-- NEED TO FIX LAYOUT AS ITS OBVS NOT CORRECT- CIRCLE BACK -->
-                <LogOutButton/>
-            </div>
-        </v-navigation-drawer>
+            <v-navigation-drawer 
+            v-model="drawer" 
+            app 
+            class="white inDrawer"
+            >
+                <div v-for="user in client" :key="user.clientId">
+                    <router-link :to="'/user/'+user.clientId"
+                    >My Account
+                    </router-link>
+                </div>
+                <div>
+                    <!-- NEED TO FIX LAYOUT AS ITS OBVS NOT CORRECT- CIRCLE BACK -->
+                    <LogOutButton/>
+                </div>
+            </v-navigation-drawer>
 
-        <v-navigation-drawer 
-        v-model="cart" 
-        app 
-        class="white shoppingCart"
-        right
-        >
-            <div>
-                <!-- add little X to close drawer? -->
-                <!-- back up shopping cart to cookie, within that component, if there is nothing there, then display img -->
-                <!-- serialization/cookies -->
-                <shoppingCart/>
-                <img class="emptyCartImg" src="../assets/emptyCartImg.png" alt="Cart Is Empty Img">
-            </div>
-        </v-navigation-drawer>
+            <v-navigation-drawer 
+            v-model="cart" 
+            app 
+            class="white shoppingCart inDrawer"
+            right
+            >
+                <div v-if="inCart">
+                    <shoppingCart class="inDrawer"/>
+                </div>
+                <div v-else>
+                    <!-- add little X to close drawer? -->
+                    <!-- back up shopping cart to cookie, within that component, if there is nothing there, then display img -->
+                    <!-- serialization/cookies -->
+                    <!-- <shoppingCart v-if="inCart" class="inDrawer"/> -->
+                    <img class="emptyCartImg" src="../assets/emptyCartImg.png" alt="Cart Is Empty Img">
+                </div>
+            </v-navigation-drawer>
+        </div>
 
-                <!-- Logo is also a link to discover page. -->
-        <router-link to="/discover">
-            <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
-        </router-link>
+        <div class="logoContainer">
+            <!-- Logo is also a link to discover page. -->
+            <router-link to="/discover">
+                <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
+            </router-link>
+        </div>
 
     </div>
 </template>
@@ -58,6 +65,7 @@
 <script>
 import axios from "axios";
 import cookies from 'vue-cookies';
+
 import shoppingCart from '@/components/shoppingCart.vue';
 import LogOutButton from '@/components/LogOutButton.vue';
 
@@ -75,6 +83,7 @@ import LogOutButton from '@/components/LogOutButton.vue';
                 client: [],
                 clientId: null,
                 token: "",
+                inCart: null,
             }
         },
         methods: {
@@ -100,6 +109,9 @@ import LogOutButton from '@/components/LogOutButton.vue';
                 this.clientId = cookies.get(`clientId`);
                 this.token = cookies.get(`sessionToken`);
             },
+            itemsInCart(){
+                this.inCart = cookies.get(`itemsInCart`);
+            }
         },
         mounted () {
             this.getClientId();
@@ -109,19 +121,16 @@ import LogOutButton from '@/components/LogOutButton.vue';
 </script>
 
 <style scoped>
-div{
+.inDrawer{
     display: grid;
-    justify-items: start;
+    justify-items: center;
 }
 .logo{
     width: 30vh;
     margin: 40px;
 }
 .emptyCartImg{
-    width: 15vw;
-}
-.shoppingCart{
-    align-items: center;
-    margin-top: 100px;
+    width: 10vw;
+    margin-top: 150px;
 }
 </style>

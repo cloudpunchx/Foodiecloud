@@ -25,7 +25,6 @@
 
         <RestaurantEditMenu/>
 
-        <!-- GET menu so you can see what you're updating? -->
         <RestaurantAddMenu/>
         <!-- patch menu here -->
 

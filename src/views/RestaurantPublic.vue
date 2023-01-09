@@ -13,7 +13,7 @@
         :key="restaurant.restaurantId"
         >
             <v-img
-            height="250"
+            height="300"
             :src="restaurant.bannerUrl"
             ></v-img>
 
