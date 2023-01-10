@@ -3,9 +3,91 @@
         <v-card
         class="d-flex flex-column justify-center mb-6"
         >
-            <v-form>
+            <v-app-bar width="100%" flat>
+                <v-toolbar-title>
+                    <p v-if="signUp" class="title">Sign Up</p>
+                    <p v-else class="title">Log In</p>
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn
+                outlined
+                text
+                @click="toggleLogInSignUp"
+                >
+                    {{ buttonText }}
+                </v-btn>
+            </v-app-bar>
+
+            <v-form v-if="signUp">
                 <v-container>
-                    <p>Log In</p>
+                    <v-row>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="email"
+                            :rules="emailRules"
+                            label="E-mail"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="username"
+                            :rules="nameRules"
+                            label="Username"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="firstName"
+                            :rules="nameRules"
+                            label="First Name"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="lastName"
+                            :rules="nameRules"
+                            label="Last Name"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                        <!-- :rules="passwordRules" do we need? -->
+                            <v-text-field
+                            v-model="password"
+                            label="Password"
+                            required
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <v-btn
+                elevation="2"
+                @click="clientSignUp"
+                outlined
+                >Submit</v-btn>
+                <p class="error" v-if="signUpError">{{ signUpError }}</p>
+            </v-form>
+
+            <v-form v-else>
+                <v-container>
                     <v-row>
                         <v-col
                         cols="12"
@@ -60,6 +142,15 @@ import router from '@/router';
                 password: "",
                 loginError: "",
                 clientId: null,
+                buttonText: "Sign Up",
+                signUp: false,
+                username: "",
+                firstName: "",
+                lastName: "",
+                nameRules: [
+                    v => !!v || 'Name is required',
+                ],
+                signUpError: "",
             }
         },
         methods: {
@@ -82,9 +173,43 @@ import router from '@/router';
                 }).catch((error)=>{
                     this.loginError = error;
                     this.loginError = "Incorrect Email or Password"
-                    this.email = "";
-                    this.password = "";
+                    this.clearTextBox();
                 })
+            },
+            clientSignUp() {
+                axios.request({
+                    url: "https://foodierest.ml/api/client",
+                    method: "POST",
+                    headers: {
+                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                    },
+                    data: {
+                        email: this.email,
+                        username: this.username,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        password: this.password,
+                    },
+                }).then((response)=>{
+                    router.push("/");
+                    cookies.set(`sessionToken`, response.data.token);
+                    cookies.set(`clientId`, response.data.clientId);
+                }).catch((error)=>{
+                    this.signUpError = error;
+                    this.signUpError = "Something went wrong, try again."
+                    this.clearTextBox();
+                })
+            },
+            toggleLogInSignUp() {
+                this.signUp = !this.signUp;
+                this.buttonText = this.signUp ? "Log In" : "Sign Up";
+            },
+            clearTextBox(){
+                this.firstName = "";
+                this.lastName = "";
+                this.email = "";
+                this.username = "";
+                this.password = "";
             }
         },
     }

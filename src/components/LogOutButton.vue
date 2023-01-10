@@ -26,7 +26,7 @@ import router from '@/router';
                     cookies.remove(`clientId`);
                     cookies.remove(`itemsInCart`);
                     // return to discover page after logout
-                    router.push("/");
+                    router.push("/client/login");
                 }).catch((error)=>{
                     error = "Unexpected error occurred, try again."
                     alert(error)

@@ -2,6 +2,8 @@
     <div>
         <LoginHeader/>
 
+        <ClientLogin/>
+
         <!-- Router link to Restaurant Login/Sign Up Page -->
         <router-link to="/restaurant/login"
         ><v-btn
@@ -11,19 +13,6 @@
             Restaurant Log In
         </v-btn></router-link>
 
-        <div>
-            <v-btn
-            elevation="2"
-            @click="toggleLogInSignUp"
-            outlined
-            >{{ buttonText }}</v-btn>
-            <ClientLogin/>
-        </div>
-
-        <div v-if="signUp">
-            <ClientSignUp/>
-        </div>
-
         <PageFooter/>
     </div>
 </template>
@@ -32,29 +21,13 @@
 import LoginHeader from '@/components/LoginHeader.vue'
 import PageFooter from '@/components/PageFooter.vue'
 import ClientLogin from '@/components/ClientLogin.vue'
-import ClientSignUp from '@/components/ClientSignUp.vue'
 
     export default {
         name: "ClientLogInSignUp",
         components: {
             LoginHeader,
             ClientLogin,
-            ClientSignUp,
             PageFooter
-        },
-        data() {
-            return {
-                // we need to set the text up to initially say Sign Up, then we have a toggle to change it
-                buttonText: "Sign Up",
-                signUp: false
-            }
-        },
-        methods: {
-            // this function toggles my text from Log In to Sign Up on button click
-            toggleLogInSignUp() {
-                this.signUp = !this.signUp;
-                this.buttonText = this.signUp ? "Log In" : "Sign Up";
-            }
         },
     }
 </script>

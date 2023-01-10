@@ -14,7 +14,7 @@
 <style scoped>
 div{
     text-align: center;
-    margin-top: 100px;
+    margin-top: 300px;
 }
 img{
     width: 10vw;

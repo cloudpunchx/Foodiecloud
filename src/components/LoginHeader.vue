@@ -22,14 +22,14 @@ div{
     justify-items: start;
 }
 .logo{
-    width: 20vh;
-    margin: 40px;
+    width: 40vh;
+    margin: 35px;
 }
 .phrase{
     width: 25vw;
     position: absolute;
-    left: 51.5%;
-    top: 16%;
+    left: 50%;
+    top: 25%;
     transform: translateX(-50%);
 }
 </style>

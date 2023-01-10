@@ -1,5 +1,4 @@
 // check this over before submitting, maybe change some meta? add?
-// can the title be dynamic too?
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'

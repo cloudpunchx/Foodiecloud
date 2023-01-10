@@ -26,7 +26,7 @@ import router from '@/router';
                     this.token = cookies.get(`sessionToken`);
                     cookies.remove(`sessionToken`);
                     cookies.remove(`restaurantId`);
-                    router.push("/");
+                    router.push("/restaurant/login");
                 }).catch((error)=>{
                     error = "Unexpected error occurred, try again."
                     alert(error)

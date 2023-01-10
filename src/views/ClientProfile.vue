@@ -1,5 +1,3 @@
-<!-- can i make it so profile is filled in and you can submit already filled in info like doordash -->
-
 <template>
     <div>
         <PageHeader/>
@@ -16,7 +14,6 @@
                     <span>Sign Out</span>
                 </v-btn>
             </v-app-bar>
-        <!-- adding app bar in above, if deleting make sure to keep v-card open tag -->
             <v-form
             v-for="client in client"
             :key="client.clientId">
@@ -196,7 +193,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                 this.firstName = "";
                 this.lastName = "";
                 this.password = "";
-                this.pictureUrl = "";
             },
         },
         created () {

@@ -11,18 +11,7 @@
             Customer Log In
         </v-btn></router-link>
 
-        <div>
-            <v-btn
-            elevation="2"
-            @click="toggleLogInSignUp"
-            outlined
-            >{{ buttonText }}</v-btn>
-            <RestaurantLogin/>
-        </div>
-
-        <div v-if="signUp">
-            <RestaurantSignUp/>
-        </div>
+        <RestaurantLogin/>
 
         <PageFooter/>
     </div>
@@ -31,7 +20,6 @@
 <script>
 import LoginHeader from '@/components/LoginHeader.vue'
 import RestaurantLogin from '@/components/RestaurantLogin.vue'
-import RestaurantSignUp from '@/components/RestaurantSignUp.vue'
 import PageFooter from '@/components/PageFooter.vue'
 
     export default {
@@ -39,7 +27,6 @@ import PageFooter from '@/components/PageFooter.vue'
         components: {
             LoginHeader,
             RestaurantLogin,
-            RestaurantSignUp,
             PageFooter
         },
         data() {
