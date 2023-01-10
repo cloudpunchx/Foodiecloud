@@ -10,9 +10,6 @@
                     <p class="title">Edit Your Account</p>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn>
-                    <span>Sign Out</span>
-                </v-btn>
             </v-app-bar>
             <v-form
             v-for="client in client"
@@ -28,6 +25,12 @@
                             :src="client.pictureUrl"
                             ></v-img>
                             </v-avatar>
+                            <v-col class="name">
+                                    {{ client.firstName }} {{ client.lastName }}
+                            </v-col>
+                            <v-col class="email">
+                                    {{ client.email }}
+                            </v-col>
                         </v-list-item>
                         <v-col
                         cols="12"
@@ -98,15 +101,18 @@
                     </v-row>
                 </v-container>
                 <v-btn
-                elevation="2"
                 outlined
+                text
                 @click="editProfile"
                 >Submit</v-btn>
+
+                <div>
+                    <ClientDelete/>
+                </div>
+
                 <p v-if="editAlert" class="editAlert">{{editAlert}}</p>
             </v-form>
         </v-card>
-
-        <ClientDelete/>
 
         <InsidePageFooter/>
     </div>
@@ -141,6 +147,9 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
             }
         },
         methods: {
+            getToken(){
+                this.token = cookies.get(`sessionToken`);
+            },
             getProfile() {
                 axios.request({
                     url: "https://foodierest.ml/api/client",
@@ -158,9 +167,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                     this.editAlert = error;
                     this.editAlert = "Something went wrong, please try again."
                 })
-            },
-            getClientId(){
-                this.token = cookies.get(`sessionToken`);
             },
             editProfile(){
                 axios.request({
@@ -196,7 +202,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
             },
         },
         created () {
-            this.getClientId();
+            this.getToken();
             this.getProfile();
         },
     }
@@ -218,10 +224,24 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: 15px;
 }
+.name{
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    font-size: 20pt;
+}
+.email{
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    font-size: 20pt;
+}
 .v-form{
     margin-top: 60px;
 }
-.title{
-    padding-top: 18px;
+.v-btn{
+    font-size: 12pt;
+    color: white;
+    background-color: black;
 }
 </style>

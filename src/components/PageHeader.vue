@@ -31,9 +31,19 @@
 
                 <div v-if="clientId">
                     <div v-for="user in client" :key="user.clientId">
-                        <router-link class="myAcctBtn" :to="'/user/'+user.clientId"
-                        >My Account
-                        </router-link>
+                        <v-list-item>
+                            <router-link class="navBtns" 
+                            to="/orders"
+                            >Order History
+                            </router-link>
+                        </v-list-item>
+
+                        <v-list-item>
+                            <router-link class="navBtns" 
+                            :to="'/user/'+user.clientId"
+                            >Account
+                            </router-link>
+                        </v-list-item>
                     </div>
                     <div>
                         <LogOutButton/>
@@ -42,8 +52,11 @@
 
                 <div v-else-if="restaurantId">
                     <div v-for="user in client" :key="user.restaurantId">
-                        <router-link class="myAcctBtn" to="/restaurant/settings/account"
-                        >My Account
+                        <router-link class="navBtns" to="/orders"
+                        >Order History
+                        </router-link>
+                        <router-link class="navBtns" to="/restaurant/settings/account"
+                        >Account
                         </router-link>
                     </div>
                     <div>
@@ -52,7 +65,7 @@
                 </div>
 
                 <div v-else>
-                    <router-link class="myAcctBtn" to="/client/login"
+                    <router-link class="navBtns" to="/client/login"
                         >Log In/Sign Up
                     </router-link>
                 </div>
@@ -79,7 +92,7 @@
 
         <div class="logoContainer">
             <!-- Logo is also a link to discover page. -->
-            <router-link to="/discover">
+            <router-link to="/">
                 <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
             </router-link>
         </div>
@@ -193,20 +206,21 @@ import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
 }
 .navDrawer, .shoppingCart{
     margin-top: 80px;
+    text-align: center;
 }
 .closeDrawer{
     position: absolute;
     left: 2%;
 }
-.myAcctBtn{
+.navBtns{
     text-decoration: none;
     font-size: 1.5rem;
     color: black;
 }
-.myAcctBtn:visited{
+.navBtns:visited{
     color: black;
 }
-.myAcctBtn:active{
+.navBtns:active{
     color: #90caf8;
 }
 </style>

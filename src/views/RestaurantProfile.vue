@@ -7,7 +7,10 @@
             class="d-flex flex-column justify-center mb-6"
             >
             <v-app-bar width="100%" flat>
-                <v-toolbar-title>
+                <v-toolbar-title v-if="openMenu">
+                    <p class="title">Edit Your Menu</p>
+                </v-toolbar-title>
+                <v-toolbar-title v-else>
                     <p class="title">Edit Your Account</p>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -20,7 +23,8 @@
                 </v-btn>
             </v-app-bar>
                 <div v-if="openMenu">
-
+                    <GetMenu/>
+                    <RestaurantAddMenu/>
                 </div>
                 <div v-else>
                     <v-form
@@ -129,8 +133,8 @@
                             </v-row>
                         </v-container>
                         <v-btn
-                        elevation="2"
                         outlined
+                        text
                         @click="editProfile"
                         >Submit</v-btn>
                         <p v-if="editAlert" class="editAlert">{{editAlert}}</p>
@@ -138,26 +142,6 @@
                 </div>
             </v-card>
         </div>
-
-        <div>
-            <v-card
-                outlined
-                tile
-                class="d-flex flex-column justify-center mb-6"
-                v-for="item in menu"
-                :key="item.menuId"
-                >
-                <h2>{{item.name}}!</h2>
-                <img :src="item.imageUrl">
-                <p>{{item.description}}</p>
-                <p>{{item.price}}</p>
-                <p>{{item.menuId}}</p>
-            </v-card>
-        </div>
-
-        <!-- <RestaurantEditMenu/>
-
-        <RestaurantAddMenu/> -->
 
         <InsidePageFooter/>
     </div>
@@ -168,25 +152,22 @@ import axios from "axios";
 import cookies from 'vue-cookies';
 
 import PageHeader from '@/components/PageHeader.vue';
-// import RestaurantAddMenu from '@/components/RestaurantAddMenu.vue';
-// import RestaurantEditMenu from '@/components/RestaurantEditMenu.vue';
+import GetMenu from '@/components/GetMenu.vue';
+import RestaurantAddMenu from '@/components/RestaurantAddMenu.vue';
 import InsidePageFooter from '@/components/InsidePageFooter.vue';
 
     export default {
         name: "RestaurantProfile",
         components: {
             PageHeader,
-            // RestaurantEditMenu,
-            // RestaurantAddMenu,
+            RestaurantAddMenu,
+            GetMenu,
             InsidePageFooter
         },
         data() {
             return {
                 restaurantId: null,
                 restaurant: [],
-                menuId: null,
-                menu: [],
-                valid: false,
                 token: "",
                 name: "",
                 bannerUrl: "",
@@ -196,9 +177,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                 city: "",
                 email: "",
                 phoneNum: "",
-                imageUrl: "",
-                description: "",
-                price: "",
                 editAlert: "",
                 openMenu: false,
                 buttonText: "",
@@ -220,25 +198,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                     this.restaurant = response.data;
                 }).catch((error)=>{
                     error = "Something went wrong, please try again."
-                    alert(error);
-                })
-            },
-            getMenu() {
-                axios.request({
-                    url: "https://foodierest.ml/api/menu",
-                    method: "GET",
-                    headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
-                    },
-                    params: {
-                        // using variable we took from the cookie and using it as a param
-                        restaurantId: this.restaurantId,
-                        menuId: this.menuId,
-                    }
-                }).then((response)=>{
-                    this.menu = response.data;
-                }).catch((error)=>{
-                    error = "Something went wrong, please try again.";
                     alert(error);
                 })
             },
@@ -290,12 +249,11 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
             },
             viewMenu() {
                 this.openMenu = !this.openMenu;
-                this.buttonText = this.openMenu ? "Edit Menu" : "Edit Account";
+                this.buttonText = this.openMenu ? "Edit Account" : "Edit Menu";
             },
         },
         created () {
             this.getRestaurantId();
-            this.getMenu();
             this.getProfile();
         },
     }
@@ -312,9 +270,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
     left: 50%;
     transform: translateX(-50%);
     width: 75%;
-}
-img{
-    width: 10vw;
 }
 .profilePicture{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

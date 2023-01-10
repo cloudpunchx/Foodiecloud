@@ -1,6 +1,10 @@
+<!-- LEAVING OFF WITH PUTTING IN 1 TEXT BOX TO ENTER MENU ID THEN DELETE BUTTON CLICK -->
+
 <template>
     <div>
-        <v-form>
+
+        <div>
+            <v-form>
                 <v-container>
                     <p>Add To Menu</p>
                     <v-row>
@@ -11,7 +15,6 @@
                             <v-text-field
                             v-model="name"
                             label="Item Name"
-                            required
                             ></v-text-field>
                         </v-col>
                         <v-col
@@ -21,7 +24,6 @@
                             <v-text-field
                             v-model="description"
                             label="Description"
-                            required
                             ></v-text-field>
                         </v-col>
                         <v-col
@@ -31,7 +33,6 @@
                             <v-text-field
                             v-model="price"
                             label="Price"
-                            required
                             ></v-text-field>
                         </v-col>
                         <v-col
@@ -43,6 +44,16 @@
                             label="Image Url"
                             ></v-text-field>
                         </v-col>
+                        <v-col
+                        cols="12"
+                        md="6"
+                        >
+                            <v-text-field
+                            v-model="menuId"
+                            label="Menu Id - Required"
+                            required
+                            ></v-text-field>
+                        </v-col>
                     </v-row>
                 </v-container>
                 <v-btn
@@ -52,6 +63,7 @@
                 >Submit</v-btn>
                 <p class="error" v-if="message">{{ message }}</p>
             </v-form>
+        </div>
     </div>
 </template>
 
@@ -69,7 +81,8 @@ import cookies from 'vue-cookies';
                 name: "",
                 description: "",
                 price: "",
-                imageUrl: ""
+                imageUrl: "",
+                menuId: null,
             }
         },
         methods: {
@@ -96,6 +109,28 @@ import cookies from 'vue-cookies';
                     this.message = "Something went wrong, please try again."
                 })
             },
+            deleteMenuItem(){
+                axios.request({
+                    url: "https://foodierest.ml/api/menu",
+                    method: "DELETE",
+                    headers: {
+                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        token: this.token,
+                    },
+                    data: {
+                        menuId: this.menuId,
+                    }
+                }).then(()=>{
+                    // it would be nice to have this refresh to see updated menu
+                    this.message = "Successfully deleted item";
+                    this.getMenu();
+                    // this.clearTextBox();
+                }).catch((error)=>{
+                    error = "Something went wrong, please try again."
+                    this.message = error;
+                    this.clearTextBox();
+                })
+            },
             getRestaurantId(){
                 // grabbing restaurantId from cookie, putting it into variable
                 this.restaurantId = cookies.get(`restaurantId`);
@@ -106,6 +141,7 @@ import cookies from 'vue-cookies';
                 this.description = "";
                 this.price = "";
                 this.imageUrl = "";
+                this.menuId = "";
             }
         },
         created () {
@@ -116,19 +152,15 @@ import cookies from 'vue-cookies';
 
 <style scoped>
 .v-form{
-    color: white;
+    color: black;
+    background-color: white;
     text-align: center;
-    background-color: whitesmoke;
-    padding: 25px;
-    margin: 25px;
-    /* position: absolute;
-    width: 40%;
-    top: 25%;
+    padding: 15px;
+    margin: 20px;
+    position: relative;
     left: 50%;
-    transform: translateX(-50%); */
-    border: 3px solid black;
-    border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transform: translateX(-50%);
+    width: 75%;
 }
 .v-btn{
     font-size: 12pt;
@@ -139,6 +171,7 @@ p{
     color: black;
     font-weight: bold;
     font-size: 16pt;
+    text-align: start;
 }
 .error{
     color: white;

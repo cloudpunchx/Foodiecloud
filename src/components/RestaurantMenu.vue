@@ -31,13 +31,13 @@
                     </v-list-item>
 
                     <v-card-actions>
-                    <v-btn
+                        <v-btn
                         outlined
                         text
                         @click="addToCart(item.menuId)"
-                    >
-                        Add to Cart
-                    </v-btn>        
+                        >
+                            Add to Cart
+                        </v-btn>        
                     </v-card-actions>
                 </v-responsive>
             </v-card>
@@ -88,5 +88,9 @@ import cookies from 'vue-cookies';
 </script>
 
 <style scoped>
-
+.v-btn{
+    font-size: 12pt;
+    color: white;
+    background-color: black;
+}
 </style>
