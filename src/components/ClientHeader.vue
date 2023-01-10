@@ -6,29 +6,34 @@
 <template>
     <div>
         <div>
-            <v-app-bar width="100%" flat app>
-                <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-                <v-toolbar-title>
-                    Foodiecloud
-                </v-toolbar-title>
+            <v-app-bar width="100%" flat app color="#f28935">
                 <v-spacer></v-spacer>
                 <v-btn icon>
                     <v-icon @click="cart = !cart">mdi-cart</v-icon>
                 </v-btn>
+                <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             </v-app-bar>
 
             <v-navigation-drawer 
             v-model="drawer" 
             app 
-            class="white inDrawer"
+            class="navDrawer inDrawer"
+            right
             >
+                <div  
+                class="closeDrawer"
+                @click="drawer = !drawer"
+                >
+                    <v-btn icon>
+                        <v-icon>{{ svgPath }}</v-icon>
+                    </v-btn>
+                </div>
                 <div v-for="user in client" :key="user.clientId">
-                    <router-link :to="'/user/'+user.clientId"
+                    <router-link class="myAcctBtn" :to="'/user/'+user.clientId"
                     >My Account
                     </router-link>
                 </div>
                 <div>
-                    <!-- NEED TO FIX LAYOUT AS ITS OBVS NOT CORRECT- CIRCLE BACK -->
                     <LogOutButton/>
                 </div>
             </v-navigation-drawer>
@@ -36,17 +41,17 @@
             <v-navigation-drawer 
             v-model="cart" 
             app 
-            class="white shoppingCart inDrawer"
+            class="shoppingCart inDrawer"
             right
             >
-                <div v-if="inCart">
+                <div 
+                class="closeDrawer"
+                >
+                </div>
+                <div v-if="inCart == 'true'">
                     <shoppingCart class="inDrawer"/>
                 </div>
                 <div v-else>
-                    <!-- add little X to close drawer? -->
-                    <!-- back up shopping cart to cookie, within that component, if there is nothing there, then display img -->
-                    <!-- serialization/cookies -->
-                    <!-- <shoppingCart v-if="inCart" class="inDrawer"/> -->
                     <img class="emptyCartImg" src="../assets/emptyCartImg.png" alt="Cart Is Empty Img">
                 </div>
             </v-navigation-drawer>
@@ -65,7 +70,7 @@
 <script>
 import axios from "axios";
 import cookies from 'vue-cookies';
-
+import { mdiCloseBox } from '@mdi/js';
 import shoppingCart from '@/components/shoppingCart.vue';
 import LogOutButton from '@/components/LogOutButton.vue';
 
@@ -73,17 +78,18 @@ import LogOutButton from '@/components/LogOutButton.vue';
         name: "ClientHeader",
         components: {
             shoppingCart,
-            LogOutButton
+            LogOutButton,
         },
         data() {
             return {
+                svgPath: mdiCloseBox,
                 drawer: false,
                 cart: false,
                 group: null,
                 client: [],
                 clientId: null,
                 token: "",
-                inCart: null,
+                inCart: "false",
             }
         },
         methods: {
@@ -111,11 +117,12 @@ import LogOutButton from '@/components/LogOutButton.vue';
             },
             itemsInCart(){
                 this.inCart = cookies.get(`itemsInCart`);
-            }
+            },
         },
         mounted () {
             this.getClientId();
             this.getProfile();
+            this.itemsInCart();
         },
     }
 </script>
@@ -124,6 +131,7 @@ import LogOutButton from '@/components/LogOutButton.vue';
 .inDrawer{
     display: grid;
     justify-items: center;
+    text-align: center;
 }
 .logo{
     width: 30vh;
@@ -132,5 +140,23 @@ import LogOutButton from '@/components/LogOutButton.vue';
 .emptyCartImg{
     width: 10vw;
     margin-top: 150px;
+}
+.navDrawer, .shoppingCart{
+    margin-top: 80px;
+}
+.closeDrawer{
+    position: absolute;
+    left: 2%;
+}
+.myAcctBtn{
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: black;
+}
+.myAcctBtn:visited{
+    color: black;
+}
+.myAcctBtn:active{
+    color: #90caf8;
 }
 </style>

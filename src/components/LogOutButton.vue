@@ -1,12 +1,6 @@
 <template>
     <div>
-        <v-btn
-        elevation="2"
-        outlined
-        @click="logOut"
-        >
-            Log Out
-        </v-btn>
+        <p @click="logOut">Log Out</p>
     </div>
 </template>
 
@@ -43,5 +37,14 @@ import router from '@/router';
 </script>
 
 <style scoped>
-
+p{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+p:active{
+    color: #90caf8;
+}
+p:visited{
+    color: black;
+}
 </style>

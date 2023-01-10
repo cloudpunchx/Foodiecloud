@@ -55,7 +55,6 @@ import cookies from 'vue-cookies';
             return {
                 shoppingCart: [],
                 token: "",
-                // menuId: null,
             }
         },
         methods: {
@@ -66,9 +65,6 @@ import cookies from 'vue-cookies';
                     headers: {
                         'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
                     },
-                    // params: {
-                    //     menuId: this.menuId,
-                    // }
                 }).then((response)=>{
                     this.shoppingCart = response.data;
                 }).catch((error)=>{

@@ -75,7 +75,7 @@ import cookies from 'vue-cookies';
                 })
             },
             addToCart(menuId) {
-                let menuItem = menuId
+                let menuItem = menuId;
                 this.$root.$emit('addToCart', menuItem);
                 cookies.set(`itemsInCart`, `true`);
             }
