@@ -25,7 +25,7 @@ import router from '@/router';
                     cookies.remove(`sessionToken`);
                     cookies.remove(`clientId`);
                     cookies.remove(`itemsInCart`);
-                    // return to log in page after logout
+                    // return to discover page after logout
                     router.push("/");
                 }).catch((error)=>{
                     error = "Unexpected error occurred, try again."

@@ -2,7 +2,6 @@
     <div>
         <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
         
-        <!-- MIGHT CHANGE THIS PHRASE OR REMOVE  -->
         <img class="phrase" src="../assets/foodiecloudPhrase.png" alt="Foodiecloud phrase">
     </div>
 </template>

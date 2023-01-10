@@ -1,14 +1,8 @@
-<!-- need to make Log Out for restaurant, but also remember Restaurant shouldn't land on Discover page anyways -->
-
 <template>
     <div>
-        <v-btn
-        elevation="2"
-        outlined
-        @click="logOut"
-        >
-            Log Out
-        </v-btn>
+        <div>
+            <p @click="logOut">Log Out</p>
+        </div>
     </div>
 </template>
 
@@ -32,7 +26,6 @@ import router from '@/router';
                     this.token = cookies.get(`sessionToken`);
                     cookies.remove(`sessionToken`);
                     cookies.remove(`restaurantId`);
-                    // return to log in page after logout
                     router.push("/");
                 }).catch((error)=>{
                     error = "Unexpected error occurred, try again."
@@ -44,11 +37,14 @@ import router from '@/router';
 </script>
 
 <style scoped>
-.v-btn{
-    color: white;
-    background-color: black;
-    position: absolute;
-    top: 2%;
-    left: 89%;
+p{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+p:active{
+    color: #90caf8;
+}
+p:visited{
+    color: black;
 }
 </style>

@@ -16,7 +16,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
+    path: "/client/login",
     component: ClientLogInSignUp,
     meta: [
       {
@@ -144,11 +144,11 @@ const routes = [
     ]
   },
   {
-    path: "/discover",
+    path: "/",
     component: DiscoverPage,
     meta: [
       {
-        title: "Hungry?"
+        title: "Order Delivery | Foodiecloud"
       },
       {
         name: "description",

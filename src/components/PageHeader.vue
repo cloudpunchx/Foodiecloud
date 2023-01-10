@@ -28,13 +28,33 @@
                         <v-icon>{{ svgPath }}</v-icon>
                     </v-btn>
                 </div>
-                <div v-for="user in client" :key="user.clientId">
-                    <router-link class="myAcctBtn" :to="'/user/'+user.clientId"
-                    >My Account
-                    </router-link>
+
+                <div v-if="clientId">
+                    <div v-for="user in client" :key="user.clientId">
+                        <router-link class="myAcctBtn" :to="'/user/'+user.clientId"
+                        >My Account
+                        </router-link>
+                    </div>
+                    <div>
+                        <LogOutButton/>
+                    </div>
                 </div>
-                <div>
-                    <LogOutButton/>
+
+                <div v-else-if="restaurantId">
+                    <div v-for="user in client" :key="user.restaurantId">
+                        <router-link class="myAcctBtn" to="/restaurant/settings/account"
+                        >My Account
+                        </router-link>
+                    </div>
+                    <div>
+                        <RestaurantLogOut/>
+                    </div>
+                </div>
+
+                <div v-else>
+                    <router-link class="myAcctBtn" to="/client/login"
+                        >Log In/Sign Up
+                    </router-link>
                 </div>
             </v-navigation-drawer>
 
@@ -73,27 +93,31 @@ import cookies from 'vue-cookies';
 import { mdiCloseBox } from '@mdi/js';
 import shoppingCart from '@/components/shoppingCart.vue';
 import LogOutButton from '@/components/LogOutButton.vue';
+import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
 
     export default {
-        name: "ClientHeader",
+        name: "PageHeader",
         components: {
             shoppingCart,
             LogOutButton,
+            RestaurantLogOut
         },
         data() {
             return {
+                // svg path is importing the 'closed box' icon
                 svgPath: mdiCloseBox,
                 drawer: false,
                 cart: false,
                 group: null,
                 client: [],
                 clientId: null,
+                restaurantId: null,
                 token: "",
                 inCart: "false",
             }
         },
         methods: {
-            getProfile() {
+            customerHeader() {
                 axios.request({
                     url: "https://foodierest.ml/api/client",
                     method: "GET",
@@ -102,7 +126,26 @@ import LogOutButton from '@/components/LogOutButton.vue';
                         token: this.token,
                     },
                     params: {
-                        clientId: this.clientId
+                        clientId: this.clientId,
+                        restaurantId: this.restaurantId
+                    }
+                }).then((response)=>{
+                    this.client = response.data;
+                }).catch((error)=>{
+                    this.editAlert = error;
+                    this.editAlert = "Something went wrong, please try again."
+                })
+            },
+            restaurantHeader() {
+                axios.request({
+                    url: "https://foodierest.ml/api/restaurant",
+                    method: "GET",
+                    headers: {
+                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        token: this.token,
+                    },
+                    params: {
+                        restaurantId: this.restaurantId
                     }
                 }).then((response)=>{
                     this.client = response.data;
@@ -113,7 +156,15 @@ import LogOutButton from '@/components/LogOutButton.vue';
             },
             getClientId(){
                 this.clientId = cookies.get(`clientId`);
+                this.restaurantId = cookies.get(`restaurantId`);
                 this.token = cookies.get(`sessionToken`);
+                if(this.clientId != null){
+                    this.customerHeader();
+                } else if(this.restaurantId != null){
+                    this.restaurantHeader();
+                } else{
+                    console.log('do nothing');
+                }
             },
             itemsInCart(){
                 this.inCart = cookies.get(`itemsInCart`);
@@ -121,7 +172,6 @@ import LogOutButton from '@/components/LogOutButton.vue';
         },
         mounted () {
             this.getClientId();
-            this.getProfile();
             this.itemsInCart();
         },
     }

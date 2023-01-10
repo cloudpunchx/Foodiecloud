@@ -1,6 +1,6 @@
 <template>
     <div>
-        <RestaurantHeader/>
+        <PageHeader/>
 
         <!-- after this, add the profile urls and test discovery page link to public page -->
         <RestaurantEditInfo/>
@@ -36,7 +36,7 @@
 import axios from "axios";
 import cookies from 'vue-cookies';
 
-import RestaurantHeader from '@/components/RestaurantHeader.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import RestaurantEditInfo from '@/components/RestaurantEditInfo.vue';
 import RestaurantAddMenu from '@/components/RestaurantAddMenu.vue';
 import RestaurantEditMenu from '@/components/RestaurantEditMenu.vue';
@@ -45,7 +45,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
     export default {
         name: "RestaurantProfile",
         components: {
-            RestaurantHeader,
+            PageHeader,
             RestaurantEditInfo,
             RestaurantEditMenu,
             RestaurantAddMenu,

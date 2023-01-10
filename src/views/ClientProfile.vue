@@ -2,7 +2,7 @@
 
 <template>
     <div>
-        <ClientHeader/>
+        <PageHeader/>
 
         <v-card
         class="d-flex flex-column justify-center mb-6"
@@ -119,14 +119,14 @@
 import axios from "axios";
 import cookies from 'vue-cookies';
 
-import ClientHeader from '@/components/ClientHeader.vue'
+import PageHeader from '@/components/PageHeader.vue'
 import ClientDelete from '@/components/ClientDelete.vue';
 import InsidePageFooter from '@/components/InsidePageFooter.vue';
 
     export default {
         name: "ClientProfile",
         components: {
-            ClientHeader,
+            PageHeader,
             ClientDelete,
             InsidePageFooter
         },

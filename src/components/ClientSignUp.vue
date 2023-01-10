@@ -117,7 +117,7 @@ import router from '@/router';
                         password: this.password,
                     },
                 }).then((response)=>{
-                    router.push("/discover");
+                    router.push("/");
                     cookies.set(`sessionToken`, response.data.token);
                     cookies.set(`clientId`, response.data.clientId);
                 }).catch((error)=>{

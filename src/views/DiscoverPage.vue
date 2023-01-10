@@ -1,25 +1,7 @@
 <!-- Come back and fix error, make it better in AXIOS call -->
-
-<!-- set discover page as home so anyone can view even logged out -->
-
-<!-- static part /menu /rest then dynamic part is parameter that represents id of restaurant -->
-<!-- when page loads, take parameter and use it in axios call. -->
-<!-- on mounted, axios call will look at route parameter and send it over as restaurantID -->
-<!-- receives back only items pertaining to the ID -->
-
 <template>
     <div>
-        <ClientHeader/>
-
-        <!-- <div>
-            <router-link to="/user/settings/account"
-            ><v-btn
-            class="profileButton"
-            elevation="2"
-            outlined>
-            My Account
-            </v-btn></router-link>
-        </div> -->
+        <PageHeader/>
 
         <img class="phrase" src="../assets/whateveryourmood.png" alt="Whatever You're In The Mood For text Img">
 
@@ -53,12 +35,12 @@
                     ></v-rating>
 
                     <div class="grey--text ms-4">
-                    4.5 (413)
+                    4.5 (438)
                     </div>
                 </v-row>
 
                 <div class="my-4 text-subtitle-1">
-                    $ • Italian, Cafe
+                    $$ 
                 </div>
 
                 <div>{{restaurants.bio}}</div>
@@ -107,13 +89,13 @@
 <script>
 import axios from "axios";
 
-import ClientHeader from '@/components/ClientHeader.vue'
+import PageHeader from '@/components/PageHeader.vue'
 import InsidePageFooter from '@/components/InsidePageFooter.vue'
 
     export default {
         name: "DiscoverPage",
         components: {
-            ClientHeader,
+            PageHeader,
             InsidePageFooter
         },
         data() {
@@ -139,7 +121,7 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
                     {
                         src: "https://img.freepik.com/free-photo/assortment-pieces-cake_114579-30731.jpg?w=1380&t=st=1671868467~exp=1671869067~hmac=9e9e99a170abedb2a42df38ea3d056450298885370964424f5ae6ad92d10f5f1"
                     },
-                ]
+                ],
             }
         },
         methods: {
@@ -175,15 +157,8 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
 .v-card{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     z-index: 1;
+    width: 20vw;
 }
-/* EEEEEEH probs will delete these styles and redo button */
-/* .v-btn{
-    color: white;
-    background-color: black;
-    width: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-} */
 .profileButton{
     width: 12%;
     position: absolute;

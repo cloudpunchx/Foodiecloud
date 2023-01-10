@@ -1,10 +1,6 @@
-<!-- delete the rest header vue? -->
-
 <template>
     <div>
-        <!-- <RestaurantHeader/> -->
-
-        <ClientHeader/>
+        <PageHeader/>
 
         <v-card
         outlined
@@ -65,15 +61,14 @@
 
 <script>
 import axios from "axios";
-
-import ClientHeader from '@/components/ClientHeader.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import RestaurantMenu from '@/components/RestaurantMenu.vue';
 import PageFooter from '@/components/PageFooter.vue';
 
     export default {
         name: "RestaurantPublic",
         components: {
-            ClientHeader,
+            PageHeader,
             RestaurantMenu,
             PageFooter
         },

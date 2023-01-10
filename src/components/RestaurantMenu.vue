@@ -77,6 +77,7 @@ import cookies from 'vue-cookies';
             addToCart(menuId) {
                 let menuItem = menuId;
                 this.$root.$emit('addToCart', menuItem);
+                // Setting cookie here so the header nav drawer displays Cart when items are added
                 cookies.set(`itemsInCart`, `true`);
             }
         },

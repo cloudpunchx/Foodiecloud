@@ -1,43 +1,5 @@
 <template>
     <div>
-        <!-- <div class="formContainer">
-            <v-form>
-                <v-container>
-                    <p>Restaurant Log In</p>
-                    <v-row>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
-                            v-model="email"
-                            :rules="emailRules"
-                            label="E-mail"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
-                            v-model="password"
-                            type="password"
-                            label="Password"
-                            required
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-btn
-                elevation="2"
-                @click="restaurantLogin"
-                outlined
-                >Submit</v-btn>
-                <p class="error" v-if="loginError">{{ loginError }}</p>
-            </v-form>
-        </div> -->
-
         <v-card
         class="d-flex flex-column justify-center mb-6"
         >

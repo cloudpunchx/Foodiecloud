@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ClientHeader/>
+        <PageHeader/>
 
         <v-card>
             <v-card-title>Order History</v-card-title>
@@ -36,15 +36,14 @@
 <script>
 import axios from "axios";
 import cookies from 'vue-cookies';
-
-import ClientHeader from '@/components/ClientHeader.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import PageFooter from '@/components/PageFooter.vue';
 
 
     export default {
         name: "ViewOrder",
         components: {
-            ClientHeader,
+            PageHeader,
             PageFooter
         },
         data() {
