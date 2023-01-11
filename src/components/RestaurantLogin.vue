@@ -150,6 +150,8 @@ import router from '@/router';
         name: "RestaurantLogin",
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 valid: false,
                 name: "",
                 address: "",
@@ -171,10 +173,10 @@ import router from '@/router';
         methods: {
             restaurantLogin() {
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant-login",
+                    url: this.apiUrl+"restaurant-login",
                     method: "POST",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                     },
                     data: {
                         email: this.email,
@@ -194,10 +196,10 @@ import router from '@/router';
             },
             restaurantSignUp() {
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant",
+                    url: this.apiUrl+"restaurant",
                     method: "POST",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                     },
                     data: {
                         name: this.name,

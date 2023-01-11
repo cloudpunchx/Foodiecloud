@@ -48,11 +48,9 @@
                 </div>
 
                 <div>{{restaurant.bio}}</div>
-        </v-card-text>
-
+            </v-card-text>
         </v-card>
 
-        <!-- need to do something with menu, probably only import it here and send data to menu vue template? -->
         <RestaurantMenu/>
 
         <PageFooter/>
@@ -74,6 +72,8 @@ import PageFooter from '@/components/PageFooter.vue';
         },
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 restaurantId: this.$route.params.restaurantId,
                 restaurant: [],
             }
@@ -81,10 +81,10 @@ import PageFooter from '@/components/PageFooter.vue';
         methods: {
             getProfile() {
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant",
+                    url: this.apiUrl+"restaurant",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                     },
                     params: {
                         restaurantId: this.$route.params.restaurantId

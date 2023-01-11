@@ -1,8 +1,5 @@
-<!-- LEAVING OFF WITH PUTTING IN 1 TEXT BOX TO ENTER MENU ID THEN DELETE BUTTON CLICK -->
-
 <template>
     <div>
-
         <div>
             <v-form>
                 <v-container>
@@ -44,22 +41,12 @@
                             label="Image Url"
                             ></v-text-field>
                         </v-col>
-                        <v-col
-                        cols="12"
-                        md="6"
-                        >
-                            <v-text-field
-                            v-model="menuId"
-                            label="Menu Id - Required"
-                            required
-                            ></v-text-field>
-                        </v-col>
                     </v-row>
                 </v-container>
                 <v-btn
+                outlined
                 elevation="2"
                 @click="addMenuItem"
-                outlined
                 >Submit</v-btn>
                 <p class="error" v-if="message">{{ message }}</p>
             </v-form>
@@ -75,6 +62,8 @@ import cookies from 'vue-cookies';
         name: "RestaurantAddMenu",
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 token: "",
                 restaurantId: "",
                 message: "",
@@ -88,10 +77,10 @@ import cookies from 'vue-cookies';
         methods: {
             addMenuItem() {
                 axios.request({
-                    url: "https://foodierest.ml/api/menu",
+                    url: this.apiUrl+"menu",
                     method: "POST",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                         token: this.token,
                     },
                     data: {
@@ -102,33 +91,12 @@ import cookies from 'vue-cookies';
                     }
                 }).then(()=>{
                     this.message = "Successfully added to menu!";
+                    this.$root.$emit(`reloadMenu`, `reload`);
                     this.clearTextBox();
                 }).catch((error)=>{
                     this.clearTextBox();
                     this.message = error;
                     this.message = "Something went wrong, please try again."
-                })
-            },
-            deleteMenuItem(){
-                axios.request({
-                    url: "https://foodierest.ml/api/menu",
-                    method: "DELETE",
-                    headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
-                        token: this.token,
-                    },
-                    data: {
-                        menuId: this.menuId,
-                    }
-                }).then(()=>{
-                    // it would be nice to have this refresh to see updated menu
-                    this.message = "Successfully deleted item";
-                    this.getMenu();
-                    // this.clearTextBox();
-                }).catch((error)=>{
-                    error = "Something went wrong, please try again."
-                    this.message = error;
-                    this.clearTextBox();
                 })
             },
             getRestaurantId(){
@@ -152,8 +120,6 @@ import cookies from 'vue-cookies';
 
 <style scoped>
 .v-form{
-    color: black;
-    background-color: white;
     text-align: center;
     padding: 15px;
     margin: 20px;

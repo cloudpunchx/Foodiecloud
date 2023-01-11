@@ -1,12 +1,8 @@
-<!-- change name of Client Header?? to just header? -->
-
-<!-- put api key into environment variable*** -->
-<!-- check repos he sent, to see if it shows anything -->
-
 <template>
     <div>
         <div>
             <v-app-bar width="100%" flat app color="#f28935">
+                <img class="logo1" src="../assets/foodcloud.png" alt="namelogo">
                 <v-spacer></v-spacer>
                 <v-btn icon>
                     <v-icon @click="cart = !cart">mdi-cart</v-icon>
@@ -34,10 +30,9 @@
                         <v-list-item>
                             <router-link class="navBtns" 
                             to="/orders"
-                            >Order History
+                            >Orders
                             </router-link>
                         </v-list-item>
-
                         <v-list-item>
                             <router-link class="navBtns" 
                             :to="'/user/'+user.clientId"
@@ -55,6 +50,7 @@
                         <router-link class="navBtns" to="/orders"
                         >Order History
                         </router-link>
+                        <br>
                         <router-link class="navBtns" to="/restaurant/settings/account"
                         >Account
                         </router-link>
@@ -93,7 +89,7 @@
         <div class="logoContainer">
             <!-- Logo is also a link to discover page. -->
             <router-link to="/">
-                <img class="logo" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
+                <img class="logo2" src="../assets/foodiecloudlogo.png" alt="Foodiecloud Logo">
             </router-link>
         </div>
 
@@ -117,11 +113,12 @@ import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
         },
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 // svg path is importing the 'closed box' icon
                 svgPath: mdiCloseBox,
                 drawer: false,
                 cart: false,
-                group: null,
                 client: [],
                 clientId: null,
                 restaurantId: null,
@@ -132,10 +129,10 @@ import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
         methods: {
             customerHeader() {
                 axios.request({
-                    url: "https://foodierest.ml/api/client",
+                    url: this.apiUrl+"client",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key' : this.apiKey,
                         token: this.token,
                     },
                     params: {
@@ -151,10 +148,10 @@ import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
             },
             restaurantHeader() {
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant",
+                    url: this.apiUrl+"restaurant",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key' : this.apiKey,
                         token: this.token,
                     },
                     params: {
@@ -190,13 +187,17 @@ import RestaurantLogOut from '@/components/RestaurantLogOut.vue';
     }
 </script>
 
-<style scoped>
+<style  scoped>
 .inDrawer{
     display: grid;
     justify-items: center;
     text-align: center;
 }
-.logo{
+.logo1{
+    width: 10vw;
+    margin-left: 20px;
+}
+.logo2{
     width: 30vh;
     margin: 40px;
 }

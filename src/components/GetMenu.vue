@@ -1,9 +1,9 @@
 <template>
     <div>
-
         <div>
             <v-form>
                 <v-container>
+                    <p>Edit Existing Items</p>
                     <v-row>
                         <v-col
                         cols="12"
@@ -55,14 +55,19 @@
                 </v-container>
                 <v-btn
                 outlined
-                text
+                elevation="2"
                 @click="editMenuItem"
                 >Submit</v-btn>
                 <p class="error" v-if="message">{{ message }}</p>
             </v-form>
+            <RestaurantMenuDelete/>
         </div>
 
-        <div class="menuContainer">
+        <v-divider
+        inset
+        ></v-divider>
+
+    <div class="menuContainer">
         <v-card
                 outlined
                 tile
@@ -93,19 +98,23 @@
             </v-card-text>
         </v-card>
     </div>
-
-
 </div>
 </template>
 
 <script>
 import axios from "axios";
 import cookies from 'vue-cookies';
+import RestaurantMenuDelete from '@/components/RestaurantMenuDelete.vue';
 
     export default {
         name: "GetMenu",
+        components: {
+            RestaurantMenuDelete
+        },
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 token: "",
                 restaurantId: null,
                 restaurant: [],
@@ -119,12 +128,16 @@ import cookies from 'vue-cookies';
             }
         },
         methods: {
+            getRestaurantId(){
+                this.restaurantId = cookies.get(`restaurantId`);
+                this.token = cookies.get(`sessionToken`);
+            },
             getMenu() {
                 axios.request({
-                    url: "https://foodierest.ml/api/menu",
+                    url: this.apiUrl+"menu",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey
                     },
                     params: {
                         // using variable we took from the cookie and using it as a param
@@ -138,16 +151,12 @@ import cookies from 'vue-cookies';
                     alert(error);
                 })
             },
-            getRestaurantId(){
-                this.restaurantId = cookies.get(`restaurantId`);
-                this.token = cookies.get(`sessionToken`);
-            },
             editMenuItem() {
                 axios.request({
-                    url: "https://foodierest.ml/api/menu",
+                    url: this.apiUrl+"menu",
                     method: "PATCH",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                         token: this.token,
                     },
                     data: {
@@ -180,6 +189,7 @@ import cookies from 'vue-cookies';
         mounted () {
             this.getRestaurantId();
             this.getMenu();
+            this.$root.$on(`reloadMenu`, this.getMenu);
         },
     }
 </script>
@@ -190,18 +200,31 @@ import cookies from 'vue-cookies';
     grid-template-columns: 1fr 1fr;
     column-gap: 15px;
 }
-.v-card{
-    color: black;
-    background-color: white;
-    text-align: center;
+.v-form{
     padding: 15px;
     margin: 20px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%
+    width: 75%
+}
+.v-card{
+    width: 100%;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 img{
     width: 10vw;
+}
+p{
+    color: black;
+    font-weight: bold;
+    font-size: 16pt;
+    text-align: start;
+}
+.v-btn{
+    font-size: 12pt;
+    color: white;
+    background-color: black;
 }
 </style>

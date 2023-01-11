@@ -54,6 +54,8 @@ import cookies from 'vue-cookies';
         name: "shoppingCart",
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 token: "",
                 shoppingCart: [],
                 menuId: null,
@@ -63,17 +65,16 @@ import cookies from 'vue-cookies';
         methods: {
             getOrderList() {
                 axios.request({
-                    url: "https://foodierest.ml/api/menu",
+                    url: this.apiUrl+"menu",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                     },
                     params: {
                         menuId: this.menuId,
                     }
                 }).then((response)=>{
                     this.listedItems.push(response.data.imageUrl);
-                    // this.listedItems = response.data;
                 }).catch((error)=>{
                     error = "Something went wrong, please try again.";
                     alert(error);
@@ -113,9 +114,6 @@ import cookies from 'vue-cookies';
         },
     }
 </script>
-<!-- DONE! shopping cart is functional part for api call, details just visual -->
-<!-- 1st is array for item in shopping cart, make an api call to get details for specific item, then append to details array -->
-<!-- make 2nd array for details - just for looks -->
 
 <style scoped>
 

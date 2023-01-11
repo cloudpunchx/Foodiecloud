@@ -5,7 +5,7 @@
 
         <img class="phrase" src="../assets/whateveryourmood.png" alt="Whatever You're In The Mood For text Img">
 
-        <v-row>
+        <v-container class="restContainer">
             <v-card
             class="mx-auto my-12"
             max-width="374"
@@ -56,30 +56,14 @@
                     }"
                     ><v-btn
                     elevation="2"
-                    outlined>
+                    outlined
+                    >
                     Order Here
                     </v-btn>
                     </router-link>
                 </v-card-actions>
             </v-card>
-        </v-row>
-
-        <!-- <v-carousel
-        hide-delimiters
-        hide-delimiter-background
-        show-arrows-on-hover
-        cycle
-        height="500"
-        >
-            <v-carousel-item
-            v-for="(img,i) in photoCarousel"
-            :key="i"
-            :src="img.src"
-            reverse-transition="fade-transition"
-            transition="fade-transition"
-            >
-            </v-carousel-item>
-        </v-carousel> -->
+        </v-container>
 
         <InsidePageFooter/>
         
@@ -100,37 +84,19 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
         },
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 restaurants: [],
                 selectedRestaurant: "",
-                photoCarousel: [
-                    {
-                        src: "https://img.freepik.com/free-photo/serving-homemade-pappardelle-pasta-with-mushrooms-parmesan-cheese_53876-105902.jpg?w=1060&t=st=1671866019~exp=1671866619~hmac=366f4c49dd540d7d3d36190e08910a0466696dc9dee362b2cee25bf9819794ff"
-                    },
-                    {
-                        src: "https://img.freepik.com/premium-photo/breakfast-buffet-full-continental-english_79295-5883.jpg?w=1380"
-                    },
-                    {
-                        src: "https://img.freepik.com/free-photo/healthy-oatmeal-recipe-with-fruits-nuts_53876-110646.jpg?w=1380&t=st=1671866076~exp=1671866676~hmac=793746af1bc79c722e5e9c2eaac3f72273fd605c429fedb378ace119c6b62e75",
-                    },
-                    {
-                        src: "https://img.freepik.com/premium-photo/row-assorted-mexican-street-tacos-with-garnishes-wide-banner-composition_250927-495.jpg?w=1800"
-                    },
-                    {
-                        src: "https://img.freepik.com/free-photo/top-view-bowls-with-indian-food_23-2148723454.jpg?w=1380&t=st=1671865643~exp=1671866243~hmac=6c62bb36281b8d679bdf3baddb23ec6ffca987e483d62d5c19c0dac8016dc01a"
-                    },
-                    {
-                        src: "https://img.freepik.com/free-photo/assortment-pieces-cake_114579-30731.jpg?w=1380&t=st=1671868467~exp=1671869067~hmac=9e9e99a170abedb2a42df38ea3d056450298885370964424f5ae6ad92d10f5f1"
-                    },
-                ],
             }
         },
         methods: {
             restaurantDiscover() {
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant",
+                    url: this.apiUrl+"restaurant",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                     },
                 }).then((response)=>{
                     this.restaurants = response.data;
@@ -154,23 +120,13 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue'
     left: 51%;
     transform: translateX(-50%);
 }
+.restContainer{
+    width: 85%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 .v-card{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     z-index: 1;
-    width: 20vw;
 }
-.profileButton{
-    width: 12%;
-    position: absolute;
-    top: 2%;
-    left: 87%;
-}
-.v-carousel{
-    width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    top: 11%;
-}
-
 </style>

@@ -1,5 +1,3 @@
-// check this over before submitting, maybe change some meta? add?
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 

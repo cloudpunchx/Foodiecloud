@@ -13,13 +13,19 @@ import router from '@/router';
 
     export default {
         name: "RestaurantLogOut",
+        data() {
+            return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
+            }
+        },
         methods: {
             logOut() {
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant-login",
+                    url: this.apiUrl+"restaurant-login",
                     method: "DELETE",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                         token: "",
                     },
                 }).then(()=>{

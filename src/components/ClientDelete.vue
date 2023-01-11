@@ -2,7 +2,7 @@
     <div>
         <v-btn
         outlined
-        text
+        elevation="2"
         @click="deleteClient"
         >Delete Profile</v-btn>
         <p>{{ response }}</p>
@@ -18,6 +18,8 @@ import router from '@/router';
         name: "ClientDelete",
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 response: "",
                 token: "",
             }
@@ -28,10 +30,10 @@ import router from '@/router';
             },
             deleteClient() {
                 axios.request({
-                    url: "https://foodierest.ml/api/client",
+                    url: this.apiUrl+"client",
                     method: "DELETE",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                         token: this.token,
                     },
                 }).then(()=>{

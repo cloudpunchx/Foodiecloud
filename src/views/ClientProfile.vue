@@ -102,7 +102,7 @@
                 </v-container>
                 <v-btn
                 outlined
-                text
+                elevation="2"
                 @click="editProfile"
                 >Submit</v-btn>
 
@@ -135,6 +135,8 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
         },
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 client: [],
                 token: "",
                 username: "",
@@ -152,10 +154,10 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
             },
             getProfile() {
                 axios.request({
-                    url: "https://foodierest.ml/api/client",
+                    url: this.apiUrl+"client",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key' : this.apiKey,
                         token: this.token,
                     },
                     params: {
@@ -170,10 +172,10 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
             },
             editProfile(){
                 axios.request({
-                    url: "https://foodierest.ml/api/client",
+                    url: this.apiUrl+"client",
                     method: "PATCH",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key' : this.apiKey,
                         token: this.token,
                     },
                     data: {
@@ -210,8 +212,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
 
 <style scoped>
 .v-card{
-    color: black;
-    background-color: white;
     text-align: center;
     padding: 15px;
     margin: 20px;

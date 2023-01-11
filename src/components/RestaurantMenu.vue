@@ -1,47 +1,44 @@
-<!-- fix layout! -->
-<!-- need delete button for menu -->
-
 <template>
     <div>
-        <v-row>       
-            <v-card
-            class="mx-auto"
-            min-width="350"
-            max-width="350"
-            outlined
-            v-for="item in menu"
-            :key="item.menuId"
-            >
-                <v-responsive>
-                    <v-list-item three-line>
-                    <v-list-item-content>
-                        <div class="text-overline mb-4">
-                        {{item.menuId}}
-                        </div>
-                        <v-list-item-title class="text-h5 mb-1">
-                        {{item.name}}
-                        </v-list-item-title>
-                        <v-list-item-subtitle>{{item.description}}</v-list-item-subtitle>
-                    </v-list-item-content>
+        <v-container class="menuContainer">      
+                <v-card
+                class="mx-auto"
+                min-width="350"
+                max-width="350"
+                outlined
+                v-for="item in menu"
+                :key="item.menuId"
+                >
+                    <v-responsive>
+                        <v-list-item three-line>
+                        <v-list-item-content>
+                            <div class="text-overline mb-4">
+                            {{item.menuId}}
+                            </div>
+                            <v-list-item-title class="text-h5 mb-1">
+                            {{item.name}}
+                            </v-list-item-title>
+                            <v-list-item-subtitle>{{item.description}}</v-list-item-subtitle>
+                        </v-list-item-content>
 
-                    <v-list-item-avatar
-                        tile
-                        size="80"
-                    ><img :src="item.imageUrl"></v-list-item-avatar>
-                    </v-list-item>
+                        <v-list-item-avatar
+                            tile
+                            size="80"
+                        ><img :src="item.imageUrl"></v-list-item-avatar>
+                        </v-list-item>
 
-                    <v-card-actions>
-                        <v-btn
-                        outlined
-                        text
-                        @click="addToCart(item.menuId)"
-                        >
-                            Add to Cart
-                        </v-btn>        
-                    </v-card-actions>
-                </v-responsive>
-            </v-card>
-        </v-row> 
+                        <v-card-actions>
+                            <v-btn
+                            outlined
+                            elevation="2"
+                            @click="addToCart(item.menuId)"
+                            >
+                                Add to Cart
+                            </v-btn>        
+                        </v-card-actions>
+                    </v-responsive>
+                </v-card>
+        </v-container>
     </div>
 </template>
 
@@ -53,16 +50,18 @@ import cookies from 'vue-cookies';
         name: "RestaurantMenu",
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 menu: [],
             }
         },
         methods: {
             getMenu() {
                 axios.request({
-                    url: "https://foodierest.ml/api/menu",
+                    url: this.apiUrl+"menu",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                     },
                     params: {
                         restaurantId: this.$route.params.restaurantId,
@@ -92,5 +91,13 @@ import cookies from 'vue-cookies';
     font-size: 12pt;
     color: white;
     background-color: black;
+}
+.menuContainer{
+    width: 85%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.v-card{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 </style>

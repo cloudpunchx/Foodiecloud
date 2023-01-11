@@ -69,7 +69,6 @@
                         cols="12"
                         md="6"
                         >
-                        <!-- :rules="passwordRules" do we need? -->
                             <v-text-field
                             v-model="password"
                             label="Password"
@@ -133,6 +132,8 @@ import router from '@/router';
         name: "ClientLogin",
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 valid: false,
                 email: "",
                 emailRules: [
@@ -147,19 +148,16 @@ import router from '@/router';
                 username: "",
                 firstName: "",
                 lastName: "",
-                nameRules: [
-                    v => !!v || 'Name is required',
-                ],
                 signUpError: "",
             }
         },
         methods: {
             clientLogin() {
                 axios.request({
-                    url: "https://foodierest.ml/api/client-login",
+                    url: this.apiUrl+"client-login",
                     method: "POST",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey
                     },
                     data: {
                         email: this.email,
@@ -178,10 +176,10 @@ import router from '@/router';
             },
             clientSignUp() {
                 axios.request({
-                    url: "https://foodierest.ml/api/client",
+                    url: this.apiUrl+"client",
                     method: "POST",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                     },
                     data: {
                         email: this.email,

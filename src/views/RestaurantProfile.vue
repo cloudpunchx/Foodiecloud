@@ -23,8 +23,11 @@
                 </v-btn>
             </v-app-bar>
                 <div v-if="openMenu">
-                    <GetMenu/>
                     <RestaurantAddMenu/>
+                    <v-divider
+                    inset
+                    ></v-divider>
+                    <GetMenu/>
                 </div>
                 <div v-else>
                     <v-form
@@ -166,6 +169,8 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
         },
         data() {
             return {
+                apiKey: process.env.VUE_APP_API_KEY,
+                apiUrl : process.env.VUE_APP_API_URL,
                 restaurantId: null,
                 restaurant: [],
                 token: "",
@@ -179,16 +184,16 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
                 phoneNum: "",
                 editAlert: "",
                 openMenu: false,
-                buttonText: "",
+                buttonText: "Edit Menu",
             }
         },
         methods: {
             getProfile() {
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant",
+                    url: this.apiUrl+"restaurant",
                     method: "GET",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                     },
                     params: {
                         // using variable we took from the cookie and using it as a param
@@ -203,10 +208,10 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
             },
             editProfile(){
                 axios.request({
-                    url: "https://foodierest.ml/api/restaurant",
+                    url: this.apiUrl+"restaurant",
                     method: "PATCH",
                     headers: {
-                        'x-api-key': '1gE1w3C1NCFGYkoVYBQztYp1Xf5Zq1zk7QOezpMSSC5KL',
+                        'x-api-key': this.apiKey,
                         token: this.token, 
                     },
                     data: {
@@ -261,8 +266,6 @@ import InsidePageFooter from '@/components/InsidePageFooter.vue';
 
 <style scoped>
 .v-card{
-    color: black;
-    background-color: white;
     text-align: center;
     padding: 15px;
     margin: 20px;
